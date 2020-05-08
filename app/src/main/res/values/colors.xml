@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--<color name="colorPrimary">#00ACBE</color>-->
+    <color name="colorPrimary">#F4F4F4</color>
+    <color name="colorPrimaryDark">#00C7D8</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorCyan">#00C7D8</color>
+    <color name="colorCyanDark">#00ACBE</color>
+    <color name="colorOrange">#FF6B28</color>
+    <color name="colorGrayText">#989798</color>
+    <color name="colorGrayBackground">#F4F4F4</color>
+    <color name="colorLightGrayText">#D1D1D1</color>
+    <color name="colorLightBlack">#232323</color>
+    <color name="colorViolet">#5A7CFB</color>
+    <color name="colorMaroon">#E03D6C</color>
+    <color name="colorBlue">#0E5B92</color>
+    <color name="colorBrick">#FF8181</color>
+    <color name="colorSkyBlue">#5CA5FC</color>
+    <color name="colorPaleBlue">#70C5E5</color>
+    <color name="colorYellow">#fef5be47</color>
+    <color name="colorDarkGray">#4D4D4D</color>
+    <color name="colorLightBlue">#9DDEF9</color>
+    <color name="colorLightYellow">#FBD690</color>
+    <color name="colorLightGray">#6D6D6D</color>
+    <color name="color1">#9bc9f5</color>
+    <color name="color2">#FFF3D581</color>
+    <color name="color3">#FFB8D682</color>
+    <color name="color4">#f2f0ec</color>
+    <color name="section_viewed">#8cd6d0</color>
+    <color name="section_unlocked">#f6c667</color>
+    <color name="section">#aeaeae</color>
+
+    <color name="colorFAB1">#2196F3</color>
+    <color name="colorFAB2">#E040FB</color>
+
+    <color name="black_semi_transparent">#B2000000</color>
+    <color name="background">#e5e5e5</color>
+    <color name="half_black">#808080</color>
+    <color name="white">#fafafa</color>
+    <color name="white_pressed">#f1f1f1</color>
+    <color name="pink">#e91e63</color>
+    <color name="pink_pressed">#ec407a</color>
+    <color name="blue_semi_transparent">#805677fc</color>
+    <color name="blue_semi_transparent_pressed">#80738ffe</color>
+
+
+</resources>

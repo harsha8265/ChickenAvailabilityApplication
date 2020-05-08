@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_home"
+    app:startDestination="@id/dashboardMenuItemFragment"
+    >
+
+    <fragment
+        android:id="@+id/dashboardMenuItemFragment"
+        android:name="com.mobile.chickenavailabilityapplication.ui.DashboardMenuItemFragment"
+        android:label="Menu"
+        tools:layout="@layout/fragment_dashboardmenuitem_list">
+        <argument
+            android:name="itemadded"
+            app:argType="boolean"
+            android:defaultValue="false" />
+
+        <action
+            android:id="@+id/action_menu_to_description"
+            app:destination="@id/itemDescriptionFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ordersFragment"
+        android:name="com.mobile.chickenavailabilityapplication.ui.OrdersFragment"
+        android:label="Orders"
+        tools:layout="@layout/fragment_orderitem_list">
+        <!--<action
+        android:id="@+id/action_home2_to_explore"
+        app:destination="@id/cartFragment" />-->
+    </fragment>
+
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.mobile.chickenavailabilityapplication.ui.CartFragment"
+        android:label="Cart"
+        tools:layout="@layout/fragment_cart" />
+
+    <fragment
+        android:id="@+id/itemDescriptionFragment"
+        android:name="com.mobile.chickenavailabilityapplication.ui.ItemDescriptionFragment"
+        android:label="Description"
+        tools:layout="@layout/fragment_item_description" />
+
+</navigation>

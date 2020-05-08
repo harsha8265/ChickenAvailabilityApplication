@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">ChickenAvailabilityApplication</string>
+    <string name="title_activity_login">Login</string>
+    <string name="prompt_header_Login"><b>Enter Login Credentials</b></string>
+    <string name="prompt_header_accesscode"><b>Enter Activation Code</b></string>
+    <string name="prompt_header_personal_info"><b>Enter Personal Info</b></string>
+    <string name="prompt_header_create_pin"><b>Create PIN</b></string>
+    <string name="prompt_first_name"><b>First Name</b></string>
+    <string name="prompt_last_name"><b>Last Name</b></string>
+    <string name="prompt_email"><b>Email</b></string>
+    <string name="prompt_password"><b>Password</b></string>
+    <string name="prompt_confirm_password"><b>Confirm Password</b></string>
+    <string name="prompt_DOB"><b>Date of Birth</b></string>
+    <string name="prompt_cell_number"><b>Cell Number</b></string>
+    <string name="prompt_pin"><b>PIN</b></string>
+    <string name="prompt_create_pin"><b>Enter 4 digit pin</b></string>
+    <string name="prompt_update_pin"><b>Enter current pin</b></string>
+
+    <string name="prompt_confirm_pin"><b>Enter again</b></string>
+    <string name="prompt_security_answer"><b>Answer</b></string>
+
+    <string name="action_login">Login</string>
+    <string name="action_register">Register</string>
+    <string name="action_sign_up">New to Beyond? <b><u>Sign up</u></b></string>
+    <string name="action_already_logged_in">Already a user, <b><u>login</u></b> here</string>
+    <string name="action_cancel">Cancel</string>
+
+    <string name="error_field_required">This field is required</string>
+    <string name="error_pin_length">The pin should be 4 digit</string>
+    <string name="error_pin_mismatch">Pin Mismatch</string>
+    <string name="error_date_time">Date and time cannot be in future.</string>
+
+    <string name="action_lets_start">Let\'s start!</string>
+    <string name="action_lets_go">Let\'s go!</string>
+    <string name="action_start_over">Start Over</string>
+    <string name="action_iam_ready">I\'m ready</string>
+    <string name="action_play">Play</string>
+    <string name="action_play_again">Play again</string>
+    <string name="action_done">Done!</string>
+    <string name="action_next">Next!</string>
+    <string name="action_got_it">Got it!</string>
+    <string name="title_dashboard">Menu</string>
+    <string name="title_myhub">My Hub</string>
+    <string name="title_cart">Bag</string>
+
+    <string name="item_title">Chicken Thighs</string>
+    <string name="item_subheading">Chicken Thighs are the thigh of the chicken leg, just above the part of the leg called the drumstick</string>
+    <string name="item_availability">Availability : 5kgs</string>
+    <string name="item_price">%1$.2frs</string>
+    <string name="add_to_cart">Add to Cart - %1$.2frs</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>

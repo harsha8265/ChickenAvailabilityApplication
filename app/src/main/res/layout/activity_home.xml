@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".ui.HomeActivity">
+
+    <!--<include app:layout_constraintTop_toTopOf="parent"
+        layout="@layout/custom_toolbar" />-->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        app:titleTextAppearance="@style/TextAppearance.Widget.Event.Toolbar.Title"
+        android:background="@color/colorPrimary"
+        app:layout_constraintTop_toTopOf="parent" >
+
+    </androidx.appcompat.widget.Toolbar>
+    <View
+        android:id="@+id/toolbardivider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@drawable/shadow_rect"
+        android:layout_below="@id/tool_bar"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintBottom_toTopOf="@+id/frameFragmentLayout"/>
+
+    <FrameLayout
+        android:id="@+id/frameFragmentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavView"
+        app:layout_constraintTop_toBottomOf="@+id/toolbardivider">
+
+        <fragment
+            android:id="@+id/fragNavHost"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/bottom_home_nav" />
+
+    </FrameLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        app:itemIconTint="@drawable/bottom_navigation_item_colors"
+        app:itemTextColor="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/navigation"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_above="@id/bottomNavView"
+        android:background="@drawable/shadow_rect"
+        app:layout_constraintBottom_toBottomOf="@+id/frameFragmentLayout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

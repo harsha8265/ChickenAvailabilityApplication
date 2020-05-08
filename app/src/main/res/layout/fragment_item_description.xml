@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimary"
+    tools:context=".ui.ItemDescriptionFragment">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollLayout"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/relativeLayout">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:id="@+id/headerImage"
+                android:background="@drawable/chicken_legquarters"/>
+
+            <LinearLayout
+                android:id="@+id/item_detail_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/headerImage"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:elevation="2dp"
+                android:orientation="horizontal">
+
+                <com.mobile.chickenavailabilityapplication.util.CustomTextView
+                    android:id="@+id/item_heading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Chicken Thighs"
+                    android:textSize="15dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorLightBlack"
+                    app:customFont="fonts/Lato-Bold.ttf"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="5dp"
+                    />
+
+                <com.mobile.chickenavailabilityapplication.util.CustomTextView
+                    android:id="@+id/item_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="100rs"
+                    android:textSize="15dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:textColor="@color/colorLightBlack"
+                    android:maxLines="1"
+                    app:customFont="fonts/Lato-Bold.ttf"
+                    android:layout_marginRight="10dp"
+                    android:layout_toRightOf="@+id/item_heading" />
+            </LinearLayout>
+            <com.mobile.chickenavailabilityapplication.util.CustomTextView
+                style="@style/HeaderTextStyle"
+                android:text="Quantity"
+                android:padding="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:id="@+id/quantity_label"
+                android:textColor="@color/colorLightBlack"
+                app:customFont="fonts/Roboto-Bold.ttf"
+                android:layout_below="@+id/item_detail_layout"/>
+            <!--<View
+                android:id="@+id/options_seperator"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/quantityLayout"
+                android:background="@color/colorLightGrayText"
+                android:layout_marginTop="10dp" />-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/quantityLayout"
+                    android:padding="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/rounded_bordered_view"
+                    android:layout_below="@+id/quantity_label"
+                    android:orientation="horizontal">
+
+                    <Button
+                        style="@style/QuantityPickerButtonStyle"
+                        android:id="@+id/decreementButton"
+                        android:background="@android:color/transparent"
+                        android:textColor="@color/colorLightBlack"
+                        android:text="-" />
+
+                    <TextView
+                        android:id="@+id/quantity_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:text="1"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+
+                    <Button
+                        android:id="@+id/increementButton"
+                        android:background="@android:color/transparent"
+                        style="@style/QuantityPickerButtonStyle"
+                        android:textColor="@color/colorLightBlack"
+                        android:text="+" />
+
+
+            </LinearLayout>
+            <View
+                android:id="@+id/instructions_separator"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/quantityLayout"
+                android:background="@color/colorLightGrayText"
+                android:layout_marginTop="10dp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_below="@+id/instructions_separator"
+                >
+
+                <com.mobile.chickenavailabilityapplication.util.CustomTextView
+                    android:id="@+id/instructions_heading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Special instructions"
+                    android:textSize="15sp"
+                    android:textColor="@color/colorLightBlack"
+                    android:layout_centerHorizontal="true"
+                    app:customFont="fonts/Roboto-Bold.ttf"/>
+
+                <com.mobile.chickenavailabilityapplication.util.CustomTextView
+                    android:id="@+id/instructions_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Please note that special requests may result in price adjustments after your order is processed."
+                    android:textSize="15sp"
+                    android:layout_below="@id/instructions_heading"
+                    android:textColor="@color/colorLightBlack"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    app:customFont="fonts/Roboto-Regular.ttf"/>
+                <com.mobile.chickenavailabilityapplication.util.CustomEditTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/name_mind_text"
+                    android:inputType="textMultiLine"
+                    app:customFont="fonts/Roboto-Regular.ttf"
+                    android:textColor="@color/colorLightGray"
+                    android:layout_below="@id/instructions_description"
+                    android:textSize="17dp"
+                    android:hint="request something"
+                    android:textColorHint="@color/colorGrayText"
+                    android:layout_marginTop="5dp"
+                    android:padding="10dp"
+                    android:background="@drawable/rounded_bordered_view"
+
+                    />
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bordered_view"
+        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/scrollLayout"
+        android:padding="15dp"
+        >
+
+        <com.mobile.chickenavailabilityapplication.util.CustomButton
+            android:id="@+id/add_cart_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/roundedbordered_brick"
+            android:text="Add to Cart"
+            app:customFont="fonts/Lato-Bold.ttf"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            android:textSize="15dp" />
+    </RelativeLayout>
+
+</RelativeLayout>
