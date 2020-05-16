@@ -3,12 +3,14 @@ package com.mobile.chickenavailabilityapplication.ui;
 import android.os.Handler;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 
 public class ParentActivity extends AppCompatActivity {
 
     boolean doubleBackToExitPressedOnce = false;
+
     @Override
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {

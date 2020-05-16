@@ -39,10 +39,10 @@ public class NetRequestHandler {
                 connection.setRequestMethod("GET");
             }
             else {
-                if(networkObject.mAuthCode!= null){
+                /*if(networkObject.mAuthCode!= null){
                     String jwt = "JWT " + networkObject.mAuthCode;
                     connection.setRequestProperty("Authorization", jwt);
-                }
+                }*/
               //  connection.setRequestProperty("authSecret", "MobileApp");
                 connection.setRequestProperty("Content-Type", "application/json");
                 connection.setRequestMethod("POST");

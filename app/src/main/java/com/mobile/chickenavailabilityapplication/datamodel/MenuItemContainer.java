@@ -15,6 +15,9 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Created by Harsha reddy on 5/4/20
@@ -24,12 +27,13 @@ public class MenuItemContainer extends Handler implements Serializable {
 
     private static MenuItemContainer menuItemContainer = newSingleton();
     private static final String MenuItemKey = "menuitem";
-    public static final String IdKey = "id";
+    public static final String IdKey = "productid";
     public static final String ItemHeadingKey = "itemheading";
     public static final String ItemImageKey = "itemimage";
     public static final String ItemSubHeadingKey = "itemsubheading";
     public static final String AvailableQuantityKey = "availablequantity";
     public static final String PriceKey = "price";
+    public static final String OptionsMapKey = "optionsmap";
 
     public ArrayList<MenuItem> menuItems;
 
@@ -70,13 +74,38 @@ public class MenuItemContainer extends Handler implements Serializable {
         }
     }
 
+    public MenuItem getMenuListForProductId(String productID) {
+        MenuItem returnMenuItem = null;
+        for (MenuItem menuItem : menuItems) {
+            if (menuItem.productID.equals(productID)) {
+                returnMenuItem = menuItem;
+                break;
+            }
+        }
+        return returnMenuItem;
+    }
+
+
     public void populateMenuItemObject() {
-        MenuItem menuItem1 = new MenuItem(1, "Chicken Thighs", "Chicken Thighs are the thigh of the chicken leg, just above the part of the leg called the drumstick", "chicken_thigh", 5,100.99);
-        MenuItem menuItem2 = new MenuItem(2, "Chicken Legs", "Chicken Thighs are the thigh of the chicken leg, just above the part of the leg called the drumstick", "chicken_legs", 3,200.99);
-        MenuItem menuItem3 = new MenuItem(3, "Whole Chicken", "Chicken Thighs are the thigh of the chicken leg, just above the part of the leg called the drumstick", "whole_chicken", 3,300.99);
-        MenuItem menuItem4 = new MenuItem(4, "Chicken Liver", "Chicken Thighs are the thigh of the chicken leg, just above the part of the leg called the drumstick", "chicken_liver", 2,400.99);
-        MenuItem menuItem5 = new MenuItem(5, "Chicken Quarters", "Chicken Thighs are the thigh of the chicken leg, just above the part of the leg called the drumstick", "chicken_legquarters", 4,500.99);
-        MenuItem menuItem6 = new MenuItem(6, "Chicken Boneless", "Chicken Thighs are the thigh of the chicken leg, just above the part of the leg called the drumstick", "chicken_boneless", 7,600.99);
+        HashMap<String,ArrayList<String>> completeOptionsMap = new HashMap<String,ArrayList<String>>();
+        completeOptionsMap.put("Skin", new ArrayList<>(Arrays.asList("Skinless","Skin")));
+        completeOptionsMap.put("Size", new ArrayList<>(Arrays.asList("Small","Medium","Large")));
+
+        HashMap<String,ArrayList<String>> skinOptionsMap = new HashMap<String,ArrayList<String>>();
+        skinOptionsMap.put("Skin", new ArrayList<>(Arrays.asList("Skinless","Skin")));
+
+        HashMap<String,ArrayList<String>> sizeOptionsMap = new HashMap<String,ArrayList<String>>();
+        sizeOptionsMap.put("Size", new ArrayList<>(Arrays.asList("Small","Medium","Large")));
+
+        HashMap<String,ArrayList<String>> emptyOptions = new HashMap<String,ArrayList<String>>();
+
+
+        MenuItem menuItem1 = new MenuItem("a1ef", "Chicken Thighs", "Chicken Thighs are the thigh of the chicken leg, just above the part of the leg called the drumstick", "chicken_thigh", 5,100.99,completeOptionsMap);
+        MenuItem menuItem2 = new MenuItem("a2ef", "Chicken Legs", "Chicken Thighs are the thigh of the chicken leg, just above the part of the leg called the drumstick", "chicken_legs", 3,200.99,skinOptionsMap);
+        MenuItem menuItem3 = new MenuItem("a3ef", "Whole Chicken", "Chicken Thighs are the thigh of the chicken leg, just above the part of the leg called the drumstick", "whole_chicken", 3,300.99,completeOptionsMap);
+        MenuItem menuItem4 = new MenuItem("a4ef", "Chicken Liver", "Chicken Thighs are the thigh of the chicken leg, just above the part of the leg called the drumstick", "chicken_liver", 2,400.99,emptyOptions);
+        MenuItem menuItem5 = new MenuItem("a5ef", "Chicken Quarters", "Chicken Thighs are the thigh of the chicken leg, just above the part of the leg called the drumstick", "chicken_legquarters", 4,500.99,skinOptionsMap);
+        MenuItem menuItem6 = new MenuItem("a6ef", "Chicken Boneless", "Chicken Thighs are the thigh of the chicken leg, just above the part of the leg called the drumstick", "chicken_boneless", 7,600.99,sizeOptionsMap);
 
         menuItems.add(menuItem1);
         menuItems.add(menuItem2);
@@ -117,7 +146,7 @@ public class MenuItemContainer extends Handler implements Serializable {
                             JSONObject jsonobject = jsonarray.getJSONObject(i);
                             JSONObject jsonobject1 = jsonobject.getJSONObject("fields");
                             menuItem=new MenuItem();
-                            menuItem.id= jsonobject1.getInt(IdKey);
+                            menuItem.productID= jsonobject1.getString(IdKey);
                             menuItem.itemHeading = jsonobject1.getString(ItemHeadingKey);
                             menuItem.itemSubheading=jsonobject1.getString(ItemSubHeadingKey);
                             menuItem.itemImage=jsonobject1.getString(ItemImageKey);

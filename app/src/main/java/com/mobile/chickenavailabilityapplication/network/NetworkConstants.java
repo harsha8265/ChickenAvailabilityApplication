@@ -25,10 +25,10 @@ public class NetworkConstants {
     public static final String UNKNOWN_ERROR_MESSAGE = "An unknown error has occured. Please try after sometime.";
 
 
-    public static String SERVER_BASE_URL = "";
+    public static String SERVER_BASE_URL = "http://ec2co-ecsel-b4mx5wxkl978-1215690384.us-east-1.elb.amazonaws.com";
 
     public static String GET_CUSTOMER_URL = SERVER_BASE_URL + "/api/CustomerService/getCustomer";
-    public static String SAVE_CUSTOMER_URL = SERVER_BASE_URL + "/api/CustomerService/updateCustomer";
+    public static String SAVE_CUSTOMER_URL = SERVER_BASE_URL + "/api/User";
     public static String UPDATE_CUSTOMER_URL = SERVER_BASE_URL + "/api/CustomerService/updateCustomerProfile";
     public static String LOGIN_CUSTOMER_URL = SERVER_BASE_URL + "/api/CustomerService/customerLogin";
 

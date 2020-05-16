@@ -6,19 +6,25 @@
     app:startDestination="@id/dashboardMenuItemFragment"
     >
 
+    <action android:id="@+id/action_global_mainFragment"
+        app:destination="@+id/dashboardMenuItemFragment">
+        <argument
+            android:name="itemadded"
+            app:argType="boolean"
+            android:defaultValue="false"
+            />
+    </action>
     <fragment
         android:id="@+id/dashboardMenuItemFragment"
         android:name="com.mobile.chickenavailabilityapplication.ui.DashboardMenuItemFragment"
         android:label="Menu"
         tools:layout="@layout/fragment_dashboardmenuitem_list">
-        <argument
-            android:name="itemadded"
-            app:argType="boolean"
-            android:defaultValue="false" />
+
 
         <action
             android:id="@+id/action_menu_to_description"
-            app:destination="@id/itemDescriptionFragment" />
+            app:destination="@id/itemDescriptionFragment">
+        </action>
     </fragment>
 
     <fragment
@@ -35,12 +41,30 @@
         android:id="@+id/cartFragment"
         android:name="com.mobile.chickenavailabilityapplication.ui.CartFragment"
         android:label="Cart"
-        tools:layout="@layout/fragment_cart" />
+        tools:layout="@layout/fragment_cart" >
+
+        <action
+            android:id="@+id/action_cartFragment_to_itemDescriptionFragment"
+            app:destination="@id/itemDescriptionFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/itemDescriptionFragment"
         android:name="com.mobile.chickenavailabilityapplication.ui.ItemDescriptionFragment"
         android:label="Description"
-        tools:layout="@layout/fragment_item_description" />
+        tools:layout="@layout/fragment_item_description" >
+
+
+        <action
+            android:id="@+id/action_itemDescriptionFragment_to_dashboardMenuItemFragment"
+            app:destination="@id/dashboardMenuItemFragment"
+            app:popUpTo="@id/dashboardMenuItemFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_itemdescription_to_cartfragment"
+            app:destination="@id/cartFragment"
+            app:popUpTo="@id/dashboardMenuItemFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
 
 </navigation>

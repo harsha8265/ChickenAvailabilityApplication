@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimary"
+    android:padding="5dp"
+    >
+
+
+
+    <com.mobile.chickenavailabilityapplication.util.CustomTextView
+        android:id="@+id/option_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Skin:"
+        android:textSize="15dp"
+        android:padding="5dp"
+        android:layout_centerVertical="true"
+        android:textColor="@color/colorLightBlack"
+        app:customFont="fonts/Lato-Bold.ttf"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+
+        />
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/option_heading"
+        android:id="@+id/options_group"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:padding="5dp"
+        android:orientation="horizontal"
+       >
+
+       <!-- <androidx.appcompat.widget.AppCompatRadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Skinless"
+            android:buttonTint="@color/colorLightBlack"
+            android:textColor="@color/colorLightBlack"/>
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Skin"
+            android:buttonTint="@color/colorLightBlack"
+            android:textColor="@color/colorLightBlack"/>-->
+    </RadioGroup>
+    </RelativeLayout>
+
+
+
+
+

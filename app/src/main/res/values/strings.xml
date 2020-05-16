@@ -29,16 +29,9 @@
     <string name="error_pin_length">The pin should be 4 digit</string>
     <string name="error_pin_mismatch">Pin Mismatch</string>
     <string name="error_date_time">Date and time cannot be in future.</string>
+    <string name="action_next">Next</string>
 
-    <string name="action_lets_start">Let\'s start!</string>
-    <string name="action_lets_go">Let\'s go!</string>
-    <string name="action_start_over">Start Over</string>
-    <string name="action_iam_ready">I\'m ready</string>
-    <string name="action_play">Play</string>
-    <string name="action_play_again">Play again</string>
-    <string name="action_done">Done!</string>
-    <string name="action_next">Next!</string>
-    <string name="action_got_it">Got it!</string>
+
     <string name="title_dashboard">Menu</string>
     <string name="title_myhub">My Hub</string>
     <string name="title_cart">Bag</string>
@@ -46,11 +39,43 @@
     <string name="item_title">Chicken Thighs</string>
     <string name="item_subheading">Chicken Thighs are the thigh of the chicken leg, just above the part of the leg called the drumstick</string>
     <string name="item_availability">Availability : 5kgs</string>
-    <string name="item_price">%1$.2frs</string>
-    <string name="add_to_cart">Add to Cart - %1$.2frs</string>
+    <string name="item_price">₹%1$.2f</string>
+    <string name="item_options">%1$s:</string>
+    <string name="add_to_cart">Add to Cart - ₹%1$.2f</string>
+    <string name="cart_checkout">CheckOut - ₹%1$.2f</string>
+    <string name="item_quantity">%1$.2fkg</string>
+    <string name="selected_option">✓%1$s</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="register">REGISTER</string>
+    <string name="login_email_hint">Email</string>
+    <string name="login_password_hint">Password</string>
+    <string name="signup_login_hint">Already have an account? Sign In</string>
+    <string name="login_signup_hint">Don\'t have an account? Sign Up</string>
+
+    <string name="title_activity_pin_authentication">PinAuthenticationActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+
+    //Pin Authentication
+    <string name="cancel_pf">Cancel</string>
+    <string name="use_pin_pf">Use pin</string>
+    <string name="sign_in_pf">Sign in</string>
+    <string name="ok_pf">OK</string>
+    <string name="next_pf">Next</string>
+    <string name="forgot_pf">Forgot?</string>
+    <string name="lock_screen_title_pf">Input PIN Code</string>
+    <string name="settings_pf">Settings</string>
+    <string name="no_fingerprints_message_pf">No fingerprints found. Please add fingerprints in the settings if you want to use this authorization method."</string>
+    <string name="no_fingerprints_title_pf">"No fingerprints found"</string>
+
+    <string name="fingerprint_not_recognized_pf">Fingerprint not recognized. Try again</string>
+    <string name="fingerprint_success_pf">Fingerprint recognized</string>
+    <string name="fingerprint_description_pf">Confirm fingerprint to continue</string>
+    <string name="fingerprint_hint_pf">Touch sensor</string>
+    <string name="description_fingerprint_icon_pf">Fingerprint icon</string>
 
 </resources>

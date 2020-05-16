@@ -6,7 +6,7 @@
         android:id="@+id/dashboardMenuItemFragment"
         app:showAsAction="ifRoom"
         android:orderInCategory="1"
-        android:iconTint="@color/colorCyan"
+        android:iconTint="@color/colorLightGray"
         android:icon="@drawable/ic_dashboard_black_24dp"
         android:title="@string/title_dashboard"
     />
@@ -15,15 +15,15 @@
         android:id="@+id/ordersFragment"
         app:showAsAction="ifRoom"
         android:orderInCategory="2"
-        android:iconTint="@color/colorCyan"
+        android:iconTint="@color/colorLightGray"
         android:icon="@drawable/ic_baseline_person_24"
         android:title="@string/title_myhub" />
 
     <item
         android:id="@+id/cartFragment"
         app:showAsAction="ifRoom"
-        android:orderInCategory="2"
-        android:iconTint="@color/colorCyan"
+        android:orderInCategory="3"
+        android:iconTint="@color/colorLightGray"
         android:icon="@drawable/ic_cart_black_24dp"
         android:title="@string/title_cart" />
 

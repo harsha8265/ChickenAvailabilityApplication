@@ -53,8 +53,8 @@ public class DashboardMenuItemRecyclerViewAdapter extends RecyclerView.Adapter<D
         //holder.mItemAvailabilityText.setText("Availability :"+mValues.get(position).availableQuantity+"kgs");
         holder.mItemSubHeadingText.setText(mValues.get(position).itemSubheading);
         int resID = mContext.getResources().getIdentifier(mValues.get(position).itemImage , "drawable" , mContext.getPackageName());
-        Bitmap bitMap = ViewUtils.drawableToBitmap(mContext.getResources().getDrawable(resID));
-        holder.mItemImageView.setImageBitmap(ViewUtils.getRoundedCornerImage(bitMap,150));
+       // Bitmap bitMap = ViewUtils.drawableToBitmap(mContext.getResources().getDrawable(resID));
+        holder.mItemImageView.setBackground(mContext.getResources().getDrawable(resID));
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +62,7 @@ public class DashboardMenuItemRecyclerViewAdapter extends RecyclerView.Adapter<D
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.onListFragmentInteraction(holder.mItem.productID);
                 }
             }
         });

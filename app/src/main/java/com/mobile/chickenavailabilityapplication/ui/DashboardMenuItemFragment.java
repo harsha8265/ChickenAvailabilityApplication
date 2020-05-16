@@ -113,6 +113,6 @@ public class DashboardMenuItemFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(MenuItem item);
+        void onListFragmentInteraction(String productID);
     }
 }

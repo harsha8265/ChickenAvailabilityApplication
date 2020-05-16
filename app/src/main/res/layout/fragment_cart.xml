@@ -1,19 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimary"
     tools:context=".ui.CartFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <com.mobile.chickenavailabilityapplication.util.CustomTextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list"
+        android:name="com.mobile.chickenavailabilityapplication.CartFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/title_cart"
-        app:customFont="fonts/Roboto-Bold.ttf"
-        android:textColor="@color/colorAccent"
-        android:gravity="center"
-        android:textSize="22sp"/>
+        android:orientation="horizontal"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        tools:context=".ui.cartFragment"
+        tools:listitem="@layout/fragment_cart_item"
+         />
+   <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bordered_view"
+        android:layout_above="@+id/list"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/cart_checkout_layout"
+        android:padding="15dp"
+        >
 
-</FrameLayout>
+        <com.mobile.chickenavailabilityapplication.util.CustomButton
+            android:id="@+id/cart_checkout_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/roundedbordered_red"
+            android:text="@string/cart_checkout"
+            app:customFont="fonts/Lato-Bold.ttf"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            android:textSize="15dp" />
+    </RelativeLayout>
+
+</RelativeLayout>

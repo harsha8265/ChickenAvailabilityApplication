@@ -1,22 +1,24 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!--StatusBar Stuff-->
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
     </style>
 
-    <style name="HomeTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="HomeTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
 
-        <item name="drawerArrowStyle">@style/MyDrawerArrowToggle</item>
-
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:actionBarStyle">@style/HomeTheme.MyActionBar</item>
         <item name="android:windowContentOverlay">@null</item>
+
 
         <!-- Support library compatibility -->
         <item name="actionBarStyle">@style/HomeTheme.MyActionBar</item>
@@ -82,12 +84,24 @@
     </style>
 
     <style name="menu_labels_style">
-        <item name="android:background">@drawable/fab_label_background</item>
-        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:background">@drawable/bottom_navigation_item_colors</item>
+        <item name="android:textColor">@color/colorLightGray</item>
+        <item name="android:textStyle">bold</item>
 
     </style>
 
-    <style name="ToolBarStyle" parent="ToolBarStyle.Base"/>
+    <style name="BottomNavigationView" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="BottomNavigationView.Active" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textStyle">bold</item>
+
+    </style>
+
+    <style name="ToolBarStyle" parent="ToolBarStyle.Base" />
 
     <style name="ToolBarStyle.Base" parent="">
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
@@ -100,11 +114,31 @@
 
     <style name="TextAppearance.Widget.Event.Toolbar.Title" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <!--Any text styling can be done here-->
-        <item name="android:textStyle">normal</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:gravity">center_horizontal</item>
-        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/colorLightBlack</item>
 
+    </style>
+
+    <style name="Theme.GuidelinesCompat.Light" parent="Theme.AppCompat.Light">
+        <item name="toolbarStyle">@style/Custom.Widget.Toolbar</item>
+        <item name="toolbarNavigationButtonStyle">@style/Custom.Widget.Toolbar.Button.Navigation
+        </item>
+        <item name="titleTextAppearance">@style/TextAppearance.Widget.Event.Toolbar.Title</item>
+
+    </style>
+
+    <style name="Custom.Widget.Toolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="maxButtonHeight">48dp</item>
+        <item name="android:homeAsUpIndicator">@drawable/head_back</item>
+        <item name="android:paddingLeft">@dimen/toolbar_horizontal_padding</item>
+        <item name="android:paddingRight">@dimen/toolbar_horizontal_padding</item>
+        <item name="contentInsetStart">@dimen/first_keyline</item>
+    </style>
+
+    <style name="Custom.Widget.Toolbar.Button.Navigation" parent="Widget.AppCompat.Toolbar.Button.Navigation">
+        <item name="android:homeAsUpIndicator">@drawable/head_back</item>
+        <item name="android:minWidth">48dp</item>
     </style>
 
     <style name="HeaderTextStyle">
@@ -118,5 +152,118 @@
     <style name="QuantityPickerButtonStyle">
         <item name="android:layout_width">48dp</item>
         <item name="android:layout_height">48dp</item>
+    </style>
+
+
+    <!--designs for login and register-->
+    <style name="SignUpTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!--StatusBar Stuff-->
+        <item name="android:statusBarColor">@color/primaryTextColor</item>
+    </style>
+
+    <style name="parent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="loginParent" parent="parent">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/loginBkColor</item>
+        <item name="android:focusableInTouchMode">true</item>
+    </style>
+
+    <style name="headerText" parent="parent">
+        <item name="android:textSize">@dimen/headerTextSize</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="loginCard" parent="parent"></style>
+
+    <style name="linearParent" parent="parent">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="headerTextPrimary" parent="headerText">
+        <item name="android:textColor">@color/primaryTextColor</item>
+    </style>
+
+    <style name="modifiedEditText" parent="parent">
+        <item name="android:textSize">@dimen/newsMoreTextSize</item>
+        <item name="android:backgroundTint">@color/primaryTextColor</item>
+        <item name="android:textColorHint">@color/primaryTextColor</item>
+    </style>
+
+    <style name="viewParent">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="loginButton" parent="viewParent">
+        <item name="android:background">@drawable/login_button_bk</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="FullscreenTheme" parent="AppTheme">
+        <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
+        <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
+    </style>
+
+    <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/black_overlay</item>
+    </style>
+
+    <!--Pin ENtry-->
+    <style name="PFLockScreenStyle">
+        <item name="android:background">@drawable/background_pf</item>
+    </style>
+
+    <style name="PFLockScreenButtonStyle" parent="Theme.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@drawable/touch_selector_pf</item>
+    </style>
+
+
+
+    <style name="PFLockScreenDeleteButtonStyle">
+        <item name="android:src">@drawable/delete_lockscreen_pf</item>
+        <item name="android:padding">20dp</item>
+    </style>
+
+
+    <style name="PFCheckBox">
+        <item name="android:checkboxStyle">@style/PFLockScreenCodeStyle</item>
+        <item name="checkboxStyle">@style/PFLockScreenCodeStyle</item>
+    </style>
+
+    <style name="PFLockScreenCodeStyle">
+        <item name="android:button">@drawable/code_selector_pf</item>
+    </style>
+
+    <style name="PFLockScreenNextTextStyle">
+        <item name="android:textColor">#9FFF</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:backgroundTint">#c66</item>
+    </style>
+
+    <style name="PFLockScreenHintTextStyle">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="PFLockScreenTitleTextStyle">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:gravity">center</item>
     </style>
 </resources>

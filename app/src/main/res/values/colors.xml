@@ -2,7 +2,8 @@
 <resources>
     <!--<color name="colorPrimary">#00ACBE</color>-->
     <color name="colorPrimary">#F4F4F4</color>
-    <color name="colorPrimaryDark">#00C7D8</color>
+    <color name="primaryTextColor">#D32F2F</color>
+    <color name="colorPrimaryDark">#F4F4F4</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorCyan">#00C7D8</color>
@@ -14,6 +15,7 @@
     <color name="colorLightBlack">#232323</color>
     <color name="colorViolet">#5A7CFB</color>
     <color name="colorMaroon">#E03D6C</color>
+    <color name="colorRed">#d32f2f</color>
     <color name="colorBlue">#0E5B92</color>
     <color name="colorBrick">#FF8181</color>
     <color name="colorSkyBlue">#5CA5FC</color>
@@ -44,5 +46,16 @@
     <color name="blue_semi_transparent">#805677fc</color>
     <color name="blue_semi_transparent_pressed">#80738ffe</color>
 
+    <color name="loginBkColor">#f0f0f0</color>
+
+    <color name="black_overlay">#66000000</color>
+    <!-- Lock Screen-->
+    <color name="circle_lock_screen_pf">#EE5555</color>
+    <color name="background_lock_screen_pf">#663333</color>
+    <color name="code_lock_screen_pf">#ffffff</color>
+    <color name="white_selector_pf">#66ffffff</color>
+    <color name="hint_color">#42000000</color>
+    <color name="warning_color">#f4511e</color>
+    <color name="success_color">#009688</color>
 
 </resources>

@@ -30,44 +30,41 @@ public class Customer extends Handler implements Serializable {
 
     private static Customer sCustomer = newSingleton();
 
-    public static final int GENDER_MALE = 1;
-    public static final int GENDER_FEMALE = 2;
 
     private static final String CustomerClassKey = "Customer";
     public static final String CustomerIdKey = "customerid";
-    public static final String CustomerStatusKey = "customerstatus";
-    private static final String AccessCodeKey = "accesscode";
-    private static final String FirstNameKey = "firstname";
-    private static final String LastNameKey = "lastname";
-    private static final String EmailKey = "email";
+    public static final String CustomerStatusKey = "role";
+    private static final String FirstNameKey = "firstName";
+    private static final String LastNameKey = "lastName";
+    private static final String EmailKey = "emailAddress";
     private static final String PasswordKey = "password";
     private static final String PinKey = "pin";
-    private static final String DOBKey = "dob";
-    private static final String CellNumberKey = "cellnumber";
-    private static final String GenderKey = "gender";
-    private static final String SecurityQuestionIdKey = "securityquestion";
+    private static final String CellNumberKey = "cellNumber";
+    private static final String SecurityQuestionIdKey = "securityQuestion";
     private static final String SecurityAnswerKey = "answer";
-    private static final String DoctorNameKey = "doctor_lastname";
-    private static final String RegistrationDateTimeKey = "registrationdatetime";
+    private static final String RegistrationDateTimeKey = "registrationDate";
 
+    //public static String sKey="jLIjfQZ5yojbZGTqxg2pYw==";
     public transient static String sKey;
     public transient Handler mHandler;
 
-    public int customerId;
+    public String customerId;
     public String accessCode;
     public String firstName;
     public String lastName;
     public String email;
     public String password;
     public String pin;
-    public String dob;
     public String cellNumber;
-    public int gender;
     public int securityQuestionId;
     public String securityAnswer;
-    public String doctorName;
     public Date registrationDateTime;
     public String timezoneId;
+
+    enum CUSTOMER_ROLE {
+        ADMIN,
+        USER,
+    }
 
     private static Customer newSingleton() {
 
@@ -123,12 +120,7 @@ public class Customer extends Handler implements Serializable {
         }
     }
 
-    public void getUserDetails(String accesscode, Handler handler) {
-        this.mHandler = handler;
-        this.accessCode = accesscode;
-        NetworkHandler networkHandler = new NetworkHandler(this);
-        networkHandler.ProcessRequest(getAccessCodeNetworkObject());
-    }
+
 
     public void saveUserDetails(Handler handler) {
         this.mHandler = handler;
@@ -144,25 +136,34 @@ public class Customer extends Handler implements Serializable {
         networkHandler.ProcessRequest(getLoginUserNetworkObject());
     }
 
-    private NetworkObject getAccessCodeNetworkObject() {
-        NetworkObject obj = new NetworkObject();
-        obj.mId = NetworkConstants.ACCESS_CODE_SUCCESS;
-        obj.mRequestUrl = NetworkConstants.GET_CUSTOMER_URL;
-        obj.mRequestJson = "{\"" + AccessCodeKey + "\":\"" + accessCode + "\"}";
-        return obj;
-    }
+
 
     private NetworkObject getUserDetailsNetworkObject() {
         NetworkObject obj = new NetworkObject();
         obj.mId = NetworkConstants.CUSTOMER_DETAILS_SAVE_SUCCESS;
         obj.mRequestUrl = NetworkConstants.SAVE_CUSTOMER_URL;
-        obj.mRequestJson = "{\"" + CustomerIdKey + "\":" + customerId + ", \""
-                + FirstNameKey +  "\":\"" + firstName + "\", \""
+        obj.mRequestJson = "{\"" + FirstNameKey +  "\":\"" + firstName + "\", \""
                 + LastNameKey +  "\":\"" + lastName + "\", \""
                 + CellNumberKey +  "\":\"" + cellNumber + "\", \""
+                + EmailKey +  "\":\"" + email + "\", \""
+                + PasswordKey +  "\":\"" + password + "\", \""
                 + PinKey +  "\":\"" + pin + "\", \""
-                + DOBKey +  "\":\"" + dob + "\", \""
-                + GenderKey +  "\":" + gender + ", \""
+                + CustomerStatusKey +  "\":" + "USER" + ", \""
+                + SecurityQuestionIdKey +  "\":" + securityQuestionId + ", \""
+                + SecurityAnswerKey +  "\":\"" + securityAnswer + "\"}";
+        return obj;
+    }
+
+    private NetworkObject getUserDetailsNetworkObject1() {
+        NetworkObject obj = new NetworkObject();
+        obj.mId = NetworkConstants.CUSTOMER_DETAILS_SAVE_SUCCESS;
+        obj.mRequestUrl = NetworkConstants.SAVE_CUSTOMER_URL;
+        obj.mRequestJson = "{\"" + FirstNameKey +  "\":\"" + firstName + "\", \""
+                + LastNameKey +  "\":\"" + lastName + "\", \""
+                + CellNumberKey +  "\":\"" + cellNumber + "\", \""
+                + EmailKey +  "\":\"" + email + "\", \""
+                + PasswordKey +  "\":\"" + password + "\", \""
+                + PinKey +  "\":\"" + pin + "\", \""
                 + SecurityQuestionIdKey +  "\":" + securityQuestionId + ", \""
                 + SecurityAnswerKey +  "\":\"" + securityAnswer + "\"}";
         return obj;
@@ -177,12 +178,12 @@ public class Customer extends Handler implements Serializable {
         return obj;
     }
 
-    public void sendUser(Customer customer) {
+    public void sendCustomer(Customer customer) {
         NetworkHandler networkHandler = new NetworkHandler(this);
-        networkHandler.ProcessRequest(getUserNetworkObject(customer));
+        networkHandler.ProcessRequest(getCustomerNetworkObject(customer));
     }
 
-    private NetworkObject getUserNetworkObject(Customer user) {
+    private NetworkObject getCustomerNetworkObject(Customer user) {
         NetworkObject obj = new NetworkObject();
         obj.mId = NetworkConstants.CUSTOMER_DETAILS_UPDATE_SUCCESS;
         obj.mRequestUrl = NetworkConstants.SAVE_CUSTOMER_URL;
@@ -194,10 +195,11 @@ public class Customer extends Handler implements Serializable {
         return "{\"" + Customer.CustomerIdKey + "\":" + Customer.getInstance().customerId + ", \""
                 + FirstNameKey +  "\":" + Customer.getInstance().firstName + ", \""
                 + CellNumberKey +  "\":" + Customer.getInstance().cellNumber+ ", \""
-                + DOBKey +  "\":\"" + Customer.getInstance().dob + "\"}";
+                + EmailKey +  "\":" + Customer.getInstance().email+ ", \""
+                + PasswordKey +  "\":\"" + Customer.getInstance().password + "\"}";
     }
 
-    public void updatePatientProfile(Customer customer,Handler handler) {
+    public void updateCustomerProfile(Customer customer,Handler handler) {
         this.mHandler=handler;
         NetworkHandler networkHandler = new NetworkHandler(this);
         networkHandler.ProcessRequest(updatePatientProfileObject(customer));
@@ -212,8 +214,9 @@ public class Customer extends Handler implements Serializable {
                 + LastNameKey +  "\":\"" + lastName + "\", \""
                 + CellNumberKey +  "\":\"" + cellNumber + "\", \""
                 + PinKey +  "\":\"" + pin + "\", \""
-                + DOBKey +  "\":\"" + dob + "\", \""
-                + GenderKey +  "\":" + gender + ", \""
+                + EmailKey +  "\":\"" + email + "\", \""
+                + PasswordKey +  "\":" + password + ", \""
+                + CustomerStatusKey +  "\":" + CUSTOMER_ROLE.USER.toString() + ", \""
                 + SecurityQuestionIdKey +  "\":" + securityQuestionId + ", \""
                 + SecurityAnswerKey +  "\":\"" + securityAnswer + "\"}";
         return obj;
@@ -234,11 +237,19 @@ public class Customer extends Handler implements Serializable {
                 + LastNameKey +  "\":\"" + lastName + "\", \""
                 + CellNumberKey +  "\":\"" + cellNumber + "\", \""
                 + PinKey +  "\":\"" + pin + "\", \""
-                + DOBKey +  "\":\"" + dob + "\", \""
-                + GenderKey +  "\":" + gender + ", \""
+                + EmailKey +  "\":\"" + email + "\", \""
+                + PasswordKey +  "\":" + password + ", \""
                 + SecurityQuestionIdKey +  "\":" + securityQuestionId + ", \""
                 + SecurityAnswerKey +  "\":\"" + securityAnswer + "\"}";
         return obj;
+    }
+
+    public void populateuser(){
+        Customer customer= Customer.getInstance();
+        customer.firstName="Harsha";
+        //customer.customerId=1;
+        customer.cellNumber="7042321938";
+        saveObject();
     }
 
     @Override
@@ -250,22 +261,19 @@ public class Customer extends Handler implements Serializable {
                     String json = object.mResponseJson;
                     try {
                         JSONObject jsonObject = new JSONObject(json);
-                        this.customerId = jsonObject.getInt(CustomerIdKey);
+                        this.customerId = jsonObject.getString(CustomerIdKey);
                         this.firstName = jsonObject.getString(FirstNameKey);
                         this.lastName = jsonObject.getString(LastNameKey);
                         this.cellNumber = jsonObject.getString(CellNumberKey);
 //                        this.pin = jsonObject.getString(PinKey);
-                        this.dob = jsonObject.getString(DOBKey);
-                        this.gender = jsonObject.getInt(GenderKey);
                         this.securityQuestionId = jsonObject.getInt(SecurityQuestionIdKey);
                         this.securityAnswer = jsonObject.getString(SecurityAnswerKey);
-                        this.doctorName = jsonObject.getString(DoctorNameKey);
                         String registrationDate = jsonObject.getString(RegistrationDateTimeKey);
                         this.registrationDateTime = ViewUtils.getDateForFormat("yyyy-MM-dd'T'HH:mm:ss", registrationDate, "UTC");
                         this.timezoneId = (ViewUtils.getTimezoneForDate(this.registrationDateTime)).getID();
                         this.registrationDateTime = new Date(ViewUtils.getDateWithoutTimeInMillies(this.registrationDateTime, timezoneId));
                         saveObject();
-                        PostNotification.sendMessage(NetworkConstants.CUSTOMER_OPERATION_FAILURE, this, mHandler);
+                        PostNotification.sendMessage(NetworkConstants.CUSTOMER_LOGIN_SUCCESS, this, mHandler);
                     } catch (JSONException e) {
                         PostNotification.sendMessage(NetworkConstants.CUSTOMER_OPERATION_FAILURE, json, mHandler);
                     }
@@ -279,7 +287,6 @@ public class Customer extends Handler implements Serializable {
                     String json = object.mResponseJson;
                     try {
                         JSONObject jsonObject = new JSONObject(json);
-                        this.doctorName = jsonObject.getString(DoctorNameKey);
                         String registrationDate = jsonObject.getString(RegistrationDateTimeKey);
                         this.registrationDateTime = ViewUtils.getDateForFormat("yyyy-MM-dd'T'HH:mm:ss", registrationDate, "UTC");
                         this.timezoneId = (ViewUtils.getTimezoneForDate(this.registrationDateTime)).getID();
@@ -294,24 +301,7 @@ public class Customer extends Handler implements Serializable {
                     PostNotification.sendMessage(NetworkConstants.CUSTOMER_OPERATION_FAILURE, "Invalid Access Code", mHandler);
                 }
                 break;
-            case NetworkConstants.ACCESS_CODE_SUCCESS:
-                if (message.obj != null) {
-                    String json = object.mResponseJson;
-                    try {
-                        JSONObject jsonObject = new JSONObject(json);
-                        this.customerId = jsonObject.getInt(CustomerIdKey);
-                        this.firstName = jsonObject.getString(FirstNameKey);
-                        this.lastName = jsonObject.getString(LastNameKey);
-                        this.cellNumber = jsonObject.getString(CellNumberKey);
-                        PostNotification.sendMessage(NetworkConstants.ACCESS_CODE_SUCCESS, this, mHandler);
-                    } catch (JSONException e) {
-                        PostNotification.sendMessage(NetworkConstants.CUSTOMER_OPERATION_FAILURE, "Oops , the access code you entered is wrong. Please enter the right access code and try again.", mHandler);
-                    }
-                }
-                else {
-                    PostNotification.sendMessage(NetworkConstants.CUSTOMER_OPERATION_FAILURE, "Oops , the access code you entered is wrong. Please enter the right access code and try again.", mHandler);
-                }
-                break;
+
             case NetworkConstants.NETWORK_ERROR_ID:
                 if (object.mError == null) {
                     object.mError = NetworkConstants.UNKNOWN_ERROR_MESSAGE;
