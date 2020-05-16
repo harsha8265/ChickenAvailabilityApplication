@@ -32,7 +32,7 @@ public class Customer extends Handler implements Serializable {
 
 
     private static final String CustomerClassKey = "Customer";
-    public static final String CustomerIdKey = "customerid";
+    public static final String CustomerIdKey = "customerId";
     public static final String CustomerStatusKey = "role";
     private static final String FirstNameKey = "firstName";
     private static final String LastNameKey = "lastName";
@@ -61,10 +61,7 @@ public class Customer extends Handler implements Serializable {
     public Date registrationDateTime;
     public String timezoneId;
 
-    enum CUSTOMER_ROLE {
-        ADMIN,
-        USER,
-    }
+
 
     private static Customer newSingleton() {
 
@@ -148,26 +145,12 @@ public class Customer extends Handler implements Serializable {
                 + EmailKey +  "\":\"" + email + "\", \""
                 + PasswordKey +  "\":\"" + password + "\", \""
                 + PinKey +  "\":\"" + pin + "\", \""
-                + CustomerStatusKey +  "\":" + "USER" + ", \""
+                + CustomerStatusKey +  "\":" + "\"USER\"" + ", \""
                 + SecurityQuestionIdKey +  "\":" + securityQuestionId + ", \""
                 + SecurityAnswerKey +  "\":\"" + securityAnswer + "\"}";
         return obj;
     }
 
-    private NetworkObject getUserDetailsNetworkObject1() {
-        NetworkObject obj = new NetworkObject();
-        obj.mId = NetworkConstants.CUSTOMER_DETAILS_SAVE_SUCCESS;
-        obj.mRequestUrl = NetworkConstants.SAVE_CUSTOMER_URL;
-        obj.mRequestJson = "{\"" + FirstNameKey +  "\":\"" + firstName + "\", \""
-                + LastNameKey +  "\":\"" + lastName + "\", \""
-                + CellNumberKey +  "\":\"" + cellNumber + "\", \""
-                + EmailKey +  "\":\"" + email + "\", \""
-                + PasswordKey +  "\":\"" + password + "\", \""
-                + PinKey +  "\":\"" + pin + "\", \""
-                + SecurityQuestionIdKey +  "\":" + securityQuestionId + ", \""
-                + SecurityAnswerKey +  "\":\"" + securityAnswer + "\"}";
-        return obj;
-    }
 
     private NetworkObject getLoginUserNetworkObject() {
         NetworkObject obj = new NetworkObject();
@@ -216,7 +199,7 @@ public class Customer extends Handler implements Serializable {
                 + PinKey +  "\":\"" + pin + "\", \""
                 + EmailKey +  "\":\"" + email + "\", \""
                 + PasswordKey +  "\":" + password + ", \""
-                + CustomerStatusKey +  "\":" + CUSTOMER_ROLE.USER.toString() + ", \""
+                + CustomerStatusKey +  "\":" + "user" + ", \""
                 + SecurityQuestionIdKey +  "\":" + securityQuestionId + ", \""
                 + SecurityAnswerKey +  "\":\"" + securityAnswer + "\"}";
         return obj;
