@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+
+    <com.mobile.chickenavailabilityapplication.util.CustomTextView
+        android:id="@+id/notifications_badge"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        tools:text="1"
+        android:textSize="12sp"
+        android:textColor="@color/colorWhite"
+        app:customFont="fonts/Lato-Bold.ttf"
+        android:layout_marginLeft="9dp"
+        android:layout_marginStart="9dp"
+        android:layout_gravity="top|center_horizontal"
+        android:background="@drawable/notification_badge"
+        android:backgroundTint="@color/colorRed"
+        android:gravity="center"
+
+        />
+
+    </FrameLayout>
+
+
+
+
+

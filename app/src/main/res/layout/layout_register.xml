@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/loginCard"
+    app:cardCornerRadius="@dimen/loginCardRadius"
+    android:elevation="5dp"
+    android:layout_gravity="center"
+    android:layout_marginTop="@dimen/loginViewsMargin"
+    android:layout_marginBottom="@dimen/loginViewsMargin"
+    android:background="@color/colorPrimary">
+
+    <LinearLayout
+        style="@style/linearParent"
+        android:layout_gravity="center"
+        android:padding="@dimen/loginViewsMargin">
+
+        <TextView
+            style="@style/headerTextPrimary"
+            android:id="@+id/registration_header"
+            android:text="@string/register"
+            android:layout_marginTop="@dimen/loginViewsMargin"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/parent"
+            android:layout_marginTop="@dimen/signup_text_margin_top">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/first_name"
+                style="@style/modifiedEditText"
+                android:inputType="text"
+                android:textColor="@color/colorLightBlack"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:hint="First Name"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/parent"
+            android:layout_marginTop="@dimen/signup_text_margin_top">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/last_name"
+                style="@style/modifiedEditText"
+                android:textColor="@color/colorLightBlack"
+                android:inputType="text"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:hint="Last Name"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/parent"
+            android:layout_marginTop="@dimen/signup_text_margin_top">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/cell_number"
+                style="@style/modifiedEditText"
+                android:inputType="phone"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                android:singleLine="true"
+                android:textColor="@color/colorLightBlack"
+                android:maxLines="1"
+                android:gravity="center"
+                android:hint="Mobile Number"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/parent"
+            android:layout_marginTop="@dimen/signup_text_margin_top">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/email_id"
+                style="@style/modifiedEditText"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/colorLightBlack"
+                android:singleLine="true"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:gravity="center"
+                android:hint="@string/login_email_hint"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/parent"
+            android:layout_marginTop="@dimen/signup_text_margin_top"
+            app:passwordToggleEnabled="false">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password"
+                style="@style/modifiedEditText"
+                android:hint="@string/login_password_hint"
+                android:textColor="@color/colorLightBlack"
+                android:maxLines="1"
+                android:textSize="22dp"
+                android:singleLine="true"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:inputType="textPassword"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/create_pin_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/create_pin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_create_pin"
+                android:inputType="numberPassword"
+                android:maxLines="1"
+                android:maxLength="4"
+                android:singleLine="true"
+                android:textColor="@color/colorLightBlack"
+                android:textSize="22dp"
+                android:gravity="center"
+                android:textStyle="bold"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/confirm_pin_parent"
+            app:passwordToggleEnabled="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/confirm_pin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_confirm_pin"
+                android:inputType="numberPassword"
+                android:maxLines="1"
+                android:maxLength="4"
+                android:singleLine="true"
+                android:textColor="@color/colorLightBlack"
+                android:textSize="22dp"
+                android:gravity="center"
+                android:textStyle="bold"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/security_question_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@android:color/transparent"
+            android:gravity="center"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/security_answer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_security_answer"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/colorLightBlack"
+                android:textSize="22dp"
+                android:gravity="center"
+                android:textStyle="bold"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <Button
+            style="@style/loginButton"
+            android:id="@+id/sign_up_button"
+            android:layout_gravity="center"
+            android:text="Register" />
+        <Button
+            android:id="@+id/login_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/signup_login_hint"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="18dp"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:background="@android:color/transparent"
+            android:textAllCaps="false"/>
+
+        <!--<TextView
+            style="@style/parent"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textColor="@color/primaryTextColor"
+            android:text="@string/signup_login_hint"
+            android:layout_marginTop="@dimen/loginViewsMargin"/>-->
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
