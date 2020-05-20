@@ -34,6 +34,9 @@ import com.mobile.chickenavailabilityapplication.util.ViewUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -58,22 +61,23 @@ public class CustomerSignupActivity extends AppCompatActivity {
     private View mProgressView;
     private View mLoginFormView;
     private int mRegistrationStep;
-    public enum StatusBarState
-    {
-        Light,
-        Dark
-    }
-    private StatusBarState state;
+    /*Be between 8 and 15 characters long
+    Contain at least one digit.
+    Contain at least one lower case character.
+    Contain at least one upper case character.
+    Contain at least on special character from [ @ # $ % ! . ]*/
+    private static final String PASSWORD_PATTERN = "((?=.*[a-z])(?=.*\\d)(?=.*[A-Z])(?=.*[@#$%!]).{8,15})";
+    private Pattern pattern;
+    private Matcher matcher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_customer_signup);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorRed,null));
             setSystemBarTheme(this,true);
         }
-
+        setContentView(R.layout.activity_customer_signup);
 
         mHeaderView = (TextView) findViewById(R.id.registration_header);
         mLoginButton = (Button) findViewById(R.id.login_button);
@@ -90,6 +94,7 @@ public class CustomerSignupActivity extends AppCompatActivity {
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
         mFirstNameView.setEnabled(true);
+
         updateViewPersonalInfo();
 
         ArrayAdapter<CharSequence> adapterSecurityQuestion = ArrayAdapter.createFromResource(this, R.array.security_question_array,
@@ -244,11 +249,20 @@ public class CustomerSignupActivity extends AppCompatActivity {
         if (mCellNumberView.getText().length() == 0) {
             mCellNumberView.setError(getString(R.string.error_field_required));
             returnValue = false;
-        } if (mEmail.getText().length() == 0) {
+        }
+        if (mEmail.getText().length() == 0) {
             mEmail.setError(getString(R.string.error_field_required));
             returnValue = false;
-        } if (mPassword.getText().length() == 0) {
+        }
+        if (mPassword.getText().length() == 0 ) {
             mPassword.setError(getString(R.string.error_field_required));
+            returnValue = false;
+        }
+        else if(validatePINRequirements(mPassword.getText().toString())){
+            returnValue = true;
+        }
+        else{
+            mPassword.setError("Password didnt meet requirements");
             returnValue = false;
         }
 
@@ -385,26 +399,36 @@ public class CustomerSignupActivity extends AppCompatActivity {
 
     /** Changes the System Bar Theme. */
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public static final void setSystemBarTheme(final Activity pActivity, final boolean pIsDark) {
+    public static void setSystemBarTheme(final Activity pActivity, final boolean pIsDark) {
         // Fetch the current flags.
         final int lFlags = pActivity.getWindow().getDecorView().getSystemUiVisibility();
         // Update the SystemUiVisibility dependening on whether we want a Light or Dark theme.
         pActivity.getWindow().getDecorView().setSystemUiVisibility(pIsDark ? (lFlags & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR) : (lFlags | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR));
     }
 
+    private boolean validatePINRequirements(final String password){
+        pattern = Pattern.compile(PASSWORD_PATTERN);
+        matcher = pattern.matcher(password);
+        return matcher.matches();
+
+    }
+
     private class SignUpActivityHandler extends Handler {
 
         @Override
         public void handleMessage(Message message) {
-            showProgress(false);
+            //showProgress(false);
+
             switch (message.what) {
                 case NetworkConstants.CUSTOMER_DETAILS_SAVE_SUCCESS:
-                     showProgress(true);
+                     //showProgress(true);
+                    showProgress(false);
+
                     Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                     SharedPreferences preferences = getApplicationContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putBoolean("NewAccount", true);
-                    editor.commit();
+                    editor.apply();
                     startActivity(intent);
                     finish();
                      break;

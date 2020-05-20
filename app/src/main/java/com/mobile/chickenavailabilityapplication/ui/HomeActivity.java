@@ -1,5 +1,7 @@
 package com.mobile.chickenavailabilityapplication.ui;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -48,11 +50,14 @@ public class HomeActivity extends ParentActivity implements DashboardMenuItemFra
     AppBarConfiguration appBarConfiguration;
     View notificationsBadge=null;
     BottomNavigationMenuView mBottomNavigationMenuView;
+    private Boolean mNewAccount=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        mNewAccount = preferences.getBoolean("NewAccount",false);
 
         setUpNavigation();
     }
@@ -175,13 +180,13 @@ public class HomeActivity extends ParentActivity implements DashboardMenuItemFra
         bottomNavigationView.removeView(notificationsBadge);
     }*/
 
-    private void addNotificationBadge(int count,int RESID) {
+    public void addNotificationBadge(int count,int RESID) {
         BadgeDrawable badge  = bottomNavigationView.getOrCreateBadge(
                 RESID);
         badge.setNumber(count);
         badge.setVisible(true);
     }
-    private void removeNotificationBadge(int RESID) {
+    public void removeNotificationBadge(int RESID) {
      bottomNavigationView.removeBadge(RESID);
     }
 }

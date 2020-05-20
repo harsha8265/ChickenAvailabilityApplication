@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+
         <activity
             android:name=".ui.PinAuthenticationActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -44,7 +45,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/HomeTheme"
             tools:ignore="LockedOrientationActivity" />
-        <activity android:name=".ui.LoginActivity" />
+        <activity android:name=".ui.LoginActivity"
+            android:configChanges="orientation"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity"/>
     </application>
     <uses-feature
         android:name="android.hardware.camera"

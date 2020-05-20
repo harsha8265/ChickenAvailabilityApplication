@@ -38,6 +38,7 @@ import com.mobile.chickenavailabilityapplication.datamodel.CartItem;
 import com.mobile.chickenavailabilityapplication.datamodel.CartItemContainer;
 import com.mobile.chickenavailabilityapplication.datamodel.MenuItem;
 import com.mobile.chickenavailabilityapplication.datamodel.MenuItemContainer;
+import com.mobile.chickenavailabilityapplication.util.ViewUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -64,6 +65,7 @@ public class ItemDescriptionFragment extends Fragment {
 
     ImageView itemImage;
     TextView itemTitle;
+    TextView itemDescription;
     TextView itemPrice;
     TextView itemQuantity;
     LinearLayout customOptionsMainLinearLayout;
@@ -148,6 +150,7 @@ public class ItemDescriptionFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         itemImage = (ImageView) view.findViewById(R.id.headerImage);
         itemTitle = (TextView) view.findViewById(R.id.item_heading);
+        itemDescription = (TextView) view.findViewById(R.id.item_subheading);
         itemPrice = (TextView) view.findViewById(R.id.item_price);
         increementButton = (Button) view.findViewById(R.id.increementButton);
         decreementButton = (Button) view.findViewById(R.id.decreementButton);
@@ -161,6 +164,7 @@ public class ItemDescriptionFragment extends Fragment {
         int resID = view.getResources().getIdentifier(menuItem.itemImage , "drawable" , view.getContext().getPackageName());
         itemImage.setBackground(getResources().getDrawable(resID));
         itemTitle.setText(menuItem.itemHeading);
+        itemDescription.setText(menuItem.itemSubheading);
         addCartButton.setText(view.getResources().getString(R.string.add_to_cart,menuItem.price));
         customOptionsLinearLayout.removeAllViews();
         layoutInflater=getLayoutInflater();
@@ -254,6 +258,19 @@ public class ItemDescriptionFragment extends Fragment {
 
             }
         });
+
+
+        /*specialInstructionsText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    requestedSpecialInstructions=v.getText().toString();
+                    ViewUtils.hideKeypad(specialInstructionsText);
+                    return true;
+                }
+                return false;
+            }
+        });*/
         addCartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -269,6 +286,7 @@ public class ItemDescriptionFragment extends Fragment {
 
                 }
                 requestedSpecialInstructions=specialInstructionsText.getText().toString();
+
                 navController.popBackStack(R.id.itemDescriptionFragment,false);
                 if(cartID !=null){
                     CartItemContainer.readCartItemContainer().editCartItems(cartID,requestedQuantity,subTotal,optionsSelected,requestedSpecialInstructions);

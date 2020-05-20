@@ -40,7 +40,7 @@
                 android:scaleType="fitCenter"
                 android:src="@drawable/menu_image"/>
 
-            <com.mobile.chickenavailabilityapplication.util.CustomTextView
+           <!-- <com.mobile.chickenavailabilityapplication.util.CustomTextView
                 android:id="@+id/item_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom  ="20dp"
-                style="@style/TextAppearance.AppCompat.Body1" />
+                style="@style/TextAppearance.AppCompat.Body1" />-->
         </RelativeLayout>
 
 
@@ -68,6 +68,18 @@
             android:layout_alignParentTop="true"
             style="@style/TextAppearance.AppCompat.Light.SearchResult.Title" />
 
+        <com.mobile.chickenavailabilityapplication.util.CustomTextView
+            android:id="@+id/item_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            app:customFont="fonts/Roboto-Regular.ttf"
+            android:text="100/kg"
+            android:textColor="@color/colorLightBlack"
+            android:layout_toEndOf="@+id/item_image_layout"
+            android:layout_toRightOf="@+id/item_image_layout"
+            android:layout_below="@+id/item_heading"
+            style="@style/TextAppearance.AppCompat.Body1" />
 
 
         <com.mobile.chickenavailabilityapplication.util.CustomTextView
@@ -80,7 +92,7 @@
             android:textColor="@color/colorLightBlack"
             android:layout_toEndOf="@+id/item_image_layout"
             android:layout_toRightOf="@+id/item_image_layout"
-            android:layout_below="@+id/item_heading"
+            android:layout_below="@+id/item_price"
             style="@style/TextAppearance.AppCompat.Body1" />
 
 

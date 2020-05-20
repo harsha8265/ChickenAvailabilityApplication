@@ -40,7 +40,6 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void onSplashDurationComplete() {
-        //Customer.getInstance().populateuser();
         if(MenuItemContainer.readMenuItemContainer().menuItems.isEmpty()){
             MenuItemContainer.readMenuItemContainer().populateMenuItemObject();
         }
@@ -48,6 +47,8 @@ public class SplashActivity extends AppCompatActivity {
         //startActivity(intent);
         if (Customer.getInstance().cellNumber == null ) {
             Intent intent = new Intent(getApplicationContext(), CustomerSignupActivity.class);
+            //Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            //Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
             startActivity(intent);
         } else {
             Intent intent = new Intent(getApplicationContext(), PinAuthenticationActivity.class);

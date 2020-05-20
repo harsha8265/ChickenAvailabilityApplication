@@ -44,6 +44,7 @@ public class Customer extends Handler implements Serializable {
     private static final String SecurityAnswerKey = "answer";
     private static final String RegistrationDateTimeKey = "registrationDate";
 
+
     //public static String sKey="jLIjfQZ5yojbZGTqxg2pYw==";
     public transient static String sKey;
     public transient Handler mHandler;
@@ -135,6 +136,7 @@ public class Customer extends Handler implements Serializable {
 
 
 
+    @NotNull
     private NetworkObject getUserDetailsNetworkObject() {
         NetworkObject obj = new NetworkObject();
         obj.mId = NetworkConstants.CUSTOMER_DETAILS_SAVE_SUCCESS;
@@ -211,6 +213,7 @@ public class Customer extends Handler implements Serializable {
         networkHandler.ProcessRequest(updatePinSecurityObject(customer));
     }
 
+    @NotNull
     private NetworkObject updatePinSecurityObject(Customer customer) {
         NetworkObject obj = new NetworkObject();
         obj.mId = NetworkConstants.CUSTOMER_PIN_SECURITY_UPDATE_SUCCESS;
@@ -270,10 +273,11 @@ public class Customer extends Handler implements Serializable {
                     String json = object.mResponseJson;
                     try {
                         JSONObject jsonObject = new JSONObject(json);
-                        String registrationDate = jsonObject.getString(RegistrationDateTimeKey);
+                        this.customerId = jsonObject.getString(CustomerIdKey);
+                       /* String registrationDate = jsonObject.getString(RegistrationDateTimeKey);
                         this.registrationDateTime = ViewUtils.getDateForFormat("yyyy-MM-dd'T'HH:mm:ss", registrationDate, "UTC");
                         this.timezoneId = (ViewUtils.getTimezoneForDate(this.registrationDateTime)).getID();
-                        this.registrationDateTime = new Date(ViewUtils.getDateWithoutTimeInMillies(this.registrationDateTime, timezoneId));
+                        this.registrationDateTime = new Date(ViewUtils.getDateWithoutTimeInMillies(this.registrationDateTime, timezoneId));*/
                         saveObject();
                         PostNotification.sendMessage(NetworkConstants.CUSTOMER_DETAILS_SAVE_SUCCESS, this, mHandler);
                     } catch (JSONException e) {

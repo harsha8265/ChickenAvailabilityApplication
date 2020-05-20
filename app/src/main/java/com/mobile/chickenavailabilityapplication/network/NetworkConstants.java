@@ -26,6 +26,7 @@ public class NetworkConstants {
 
 
     public static String SERVER_BASE_URL = "http://ec2co-ecsel-b4mx5wxkl978-1215690384.us-east-1.elb.amazonaws.com";
+    //public static String SERVER_BASE_URL = "http://127.0.0.1:80";
 
     public static String GET_CUSTOMER_URL = SERVER_BASE_URL + "/api/CustomerService/getCustomer";
     public static String SAVE_CUSTOMER_URL = SERVER_BASE_URL + "/api/User";

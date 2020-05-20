@@ -112,9 +112,11 @@ public class CartFragment extends Fragment {
                     cartMenuItemRecyclerViewAdapter.notifyItemRangeChanged(position, cartMenuItemRecyclerViewAdapter.getItemCount());
                     checkOutButton.setText(view.getResources().getString(R.string.cart_checkout,cartMenuItemRecyclerViewAdapter.calculateFees()));
                     if(!cartItems.isEmpty()){
+                        //((HomeActivity)context).addNotificationBadge(cartItems.size(),R.id.cartFragment);
                         checkOutLayout.setVisibility(View.VISIBLE);
                     }
                     else{
+                        ((HomeActivity)context).removeNotificationBadge(R.id.cartFragment);
                         checkOutLayout.setVisibility(View.GONE);
                     }
                 }
