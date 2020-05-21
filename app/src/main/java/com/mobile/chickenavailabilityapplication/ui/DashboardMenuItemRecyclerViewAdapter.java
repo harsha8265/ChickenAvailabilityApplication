@@ -49,7 +49,7 @@ public class DashboardMenuItemRecyclerViewAdapter extends RecyclerView.Adapter<D
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mItemHeadingText.setText(mValues.get(position).itemHeading);
-        holder.mItemPriceText.setText(mValues.get(position).price +"/kg");
+        holder.mItemPriceText.setText(mContext.getResources().getString(R.string.item_price_per_kg,mValues.get(position).price));
         //holder.mItemAvailabilityText.setText("Availability :"+mValues.get(position).availableQuantity+"kgs");
         holder.mItemSubHeadingText.setText(mValues.get(position).itemSubheading);
         int resID = mContext.getResources().getIdentifier(mValues.get(position).itemImage , "drawable" , mContext.getPackageName());

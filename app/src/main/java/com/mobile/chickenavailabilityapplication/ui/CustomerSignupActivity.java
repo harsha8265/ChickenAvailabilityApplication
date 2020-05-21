@@ -418,12 +418,10 @@ public class CustomerSignupActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message message) {
             //showProgress(false);
-
             switch (message.what) {
                 case NetworkConstants.CUSTOMER_DETAILS_SAVE_SUCCESS:
                      //showProgress(true);
                     showProgress(false);
-
                     Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                     SharedPreferences preferences = getApplicationContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();

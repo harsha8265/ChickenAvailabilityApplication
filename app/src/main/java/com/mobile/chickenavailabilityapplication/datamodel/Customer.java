@@ -230,13 +230,6 @@ public class Customer extends Handler implements Serializable {
         return obj;
     }
 
-    public void populateuser(){
-        Customer customer= Customer.getInstance();
-        customer.firstName="Harsha";
-        //customer.customerId=1;
-        customer.cellNumber="7042321938";
-        saveObject();
-    }
 
     @Override
     public void handleMessage(@NotNull Message message) {
@@ -274,10 +267,10 @@ public class Customer extends Handler implements Serializable {
                     try {
                         JSONObject jsonObject = new JSONObject(json);
                         this.customerId = jsonObject.getString(CustomerIdKey);
-                       /* String registrationDate = jsonObject.getString(RegistrationDateTimeKey);
+                        String registrationDate = jsonObject.getString(RegistrationDateTimeKey);
                         this.registrationDateTime = ViewUtils.getDateForFormat("yyyy-MM-dd'T'HH:mm:ss", registrationDate, "UTC");
                         this.timezoneId = (ViewUtils.getTimezoneForDate(this.registrationDateTime)).getID();
-                        this.registrationDateTime = new Date(ViewUtils.getDateWithoutTimeInMillies(this.registrationDateTime, timezoneId));*/
+                        this.registrationDateTime = new Date(ViewUtils.getDateWithoutTimeInMillies(this.registrationDateTime, timezoneId));
                         saveObject();
                         PostNotification.sendMessage(NetworkConstants.CUSTOMER_DETAILS_SAVE_SUCCESS, this, mHandler);
                     } catch (JSONException e) {

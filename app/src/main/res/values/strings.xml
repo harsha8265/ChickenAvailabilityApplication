@@ -40,6 +40,7 @@
     <string name="item_subheading">Chicken Thighs are the thigh of the chicken leg, just above the part of the leg called the drumstick</string>
     <string name="item_availability">Availability : 5kgs</string>
     <string name="item_price">₹%1$.2f</string>
+    <string name="item_price_per_kg">₹%1$.2f/kg</string>
     <string name="item_options">%1$s:</string>
     <string name="add_to_cart">Add to Cart - ₹%1$.2f</string>
     <string name="cart_checkout">CheckOut - ₹%1$.2f</string>

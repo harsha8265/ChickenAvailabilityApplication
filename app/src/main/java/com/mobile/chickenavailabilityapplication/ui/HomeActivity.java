@@ -13,11 +13,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.mobile.chickenavailabilityapplication.R;
 import com.mobile.chickenavailabilityapplication.datamodel.CartItem;
 import com.mobile.chickenavailabilityapplication.datamodel.CartItemContainer;
-import com.mobile.chickenavailabilityapplication.datamodel.MenuItem;
+import com.mobile.chickenavailabilityapplication.datamodel.Customer;
 import com.mobile.chickenavailabilityapplication.dummy.DummyContent;
 
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -43,7 +46,9 @@ import androidx.navigation.ui.NavigationUI;
 public class HomeActivity extends ParentActivity implements DashboardMenuItemFragment.OnListFragmentInteractionListener,
                                                             OrdersFragment.OnListFragmentInteractionListener,
                                                             CartFragment.OnListFragmentInteractionListener,
-                                                            ItemDescriptionFragment.OnFragmentInteractionListener  {
+                                                            ItemDescriptionFragment.OnFragmentInteractionListener,
+                                                            ProfileItemFragment.OnListFragmentInteractionListener
+{
 
     BottomNavigationView bottomNavigationView;
     Toolbar toolbar;
@@ -51,6 +56,7 @@ public class HomeActivity extends ParentActivity implements DashboardMenuItemFra
     View notificationsBadge=null;
     BottomNavigationMenuView mBottomNavigationMenuView;
     private Boolean mNewAccount=false;
+    Menu profileMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,15 +64,12 @@ public class HomeActivity extends ParentActivity implements DashboardMenuItemFra
         setContentView(R.layout.activity_home);
         SharedPreferences preferences = getApplicationContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
         mNewAccount = preferences.getBoolean("NewAccount",false);
-
         setUpNavigation();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
-
     }
 
     public void setUpNavigation(){
@@ -84,49 +87,8 @@ public class HomeActivity extends ParentActivity implements DashboardMenuItemFra
                 .build();
 
         NavigationUI.setupWithNavController(toolbar,navController,appBarConfiguration);
-        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
-            @Override
-            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
-                ((AppBarLayout.LayoutParams)toolbar.getLayoutParams()).gravity= Gravity.CENTER;
-                if(CartItemContainer.readCartItemContainer().cartItems.size()!=0)
-                    addNotificationBadge(CartItemContainer.readCartItemContainer().cartItems.size(),R.id.cartFragment);
-                else
-                    removeNotificationBadge(R.id.cartFragment);
-                ActionBar actionBar = getSupportActionBar();
-                if (actionBar != null)
-                {
-                    actionBar.setDisplayHomeAsUpEnabled(false); //Set this to true if selecting "home" returns up by a single level in your UI rather than back to the top level or front page.
-                }
-                switch(destination.getId()){
-                    case R.id.dashboardMenuItemFragment:
-                        showBottomNavigation();
-                        /*if(arguments != null) {
-                            if (arguments.getBoolean("itemadded")) {
-                                Toast.makeText(getApplicationContext(), "ItemAdded", Toast.LENGTH_SHORT).show();
-                            }
-                            else{
-                                Toast.makeText(getApplicationContext(),"backpressed",Toast.LENGTH_SHORT).show();
-                            }
-                        }*/
-                        break;
-                    case R.id.itemDescriptionFragment:
-                        ((AppBarLayout.LayoutParams)toolbar.getLayoutParams()).gravity= Gravity.START;
-                        if (actionBar != null)
-                        {
-                            actionBar.setDisplayHomeAsUpEnabled(true); //Set this to true if selecting "home" returns up by a single level in your UI rather than back to the top level or front page.
-                            actionBar.setHomeAsUpIndicator(R.drawable.ic_action_head_back); // set a custom icon for the default home button
-                        }
-                        hideBottomNavigation();
-                        break;
-                    default:
-                        showBottomNavigation();
-                }
-            }
-        });
-
+        navController.addOnDestinationChangedListener(mOnDestinationChangedListener);
     }
-
-
 
     public void showBottomNavigation()
     {
@@ -137,7 +99,6 @@ public class HomeActivity extends ParentActivity implements DashboardMenuItemFra
     {
         bottomNavigationView.setVisibility(View.GONE);
     }
-
 
     @Override
     public void onFragmentInteraction(Uri uri) {
@@ -156,29 +117,10 @@ public class HomeActivity extends ParentActivity implements DashboardMenuItemFra
         bundle.putString("productID", productID);
         navController.navigate(R.id.action_menu_to_description, bundle);
     }
+    @Override
+    public void onProfileListFragmentInteraction(DummyContent.DummyItem item) {
 
-    /*private View getBadge(){
-        if(notificationsBadge != null){
-            return notificationsBadge;
-        }
-        mBottomNavigationMenuView=(BottomNavigationMenuView) bottomNavigationView.getChildAt(0) ;
-        View v = mBottomNavigationMenuView.getChildAt(2);
-        BottomNavigationItemView itemView = (BottomNavigationItemView) v;
-        notificationsBadge= LayoutInflater.from(this).inflate(R.layout.notification_badge_layout,itemView,false);
-        return notificationsBadge;
     }
-
-    private void addBadge(int count) {
-        getBadge();
-        TextView textView = notificationsBadge.findViewById(R.id.notifications_badge);
-        textView.setText(String.valueOf(count));
-        bottomNavigationView.addView(notificationsBadge);
-    }
-
-    private void removeBadge() {
-
-        bottomNavigationView.removeView(notificationsBadge);
-    }*/
 
     public void addNotificationBadge(int count,int RESID) {
         BadgeDrawable badge  = bottomNavigationView.getOrCreateBadge(
@@ -187,6 +129,85 @@ public class HomeActivity extends ParentActivity implements DashboardMenuItemFra
         badge.setVisible(true);
     }
     public void removeNotificationBadge(int RESID) {
-     bottomNavigationView.removeBadge(RESID);
+        bottomNavigationView.removeBadge(RESID);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.profile_menu, menu);
+        profileMenu = menu;
+        if(profileMenu != null) {
+            profileMenu.findItem(R.id.action_profile).setVisible(false);
+            profileMenu.findItem(R.id.action_profile).setEnabled(false);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId()==R.id.action_profile){
+            NavController navController = Navigation.findNavController(this, R.id.fragNavHost);
+            Bundle bundle = new Bundle();
+            bundle.putString("customerID", Customer.getInstance().customerId);
+            navController.navigate(R.id.action_ordersFragment_to_profileItemFragment, bundle);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private final NavController.OnDestinationChangedListener mOnDestinationChangedListener
+            = new NavController.OnDestinationChangedListener(){
+
+        @Override
+        public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
+            if(profileMenu != null) {
+                profileMenu.findItem(R.id.action_profile).setVisible(false);
+                profileMenu.findItem(R.id.action_profile).setEnabled(false);
+            }
+            ((AppBarLayout.LayoutParams)toolbar.getLayoutParams()).gravity= Gravity.CENTER;
+            showBottomNavigation();
+            if(CartItemContainer.readCartItemContainer().cartItems.size()!=0)
+                addNotificationBadge(CartItemContainer.readCartItemContainer().cartItems.size(),R.id.cartFragment);
+            else
+                removeNotificationBadge(R.id.cartFragment);
+            ActionBar actionBar = getSupportActionBar();
+            if (actionBar != null)
+            {
+                actionBar.setDisplayHomeAsUpEnabled(false); //Set this to true if selecting "home" returns up by a single level in your UI rather than back to the top level or front page.
+            }
+            switch(destination.getId()){
+                case R.id.dashboardMenuItemFragment:
+                    break;
+                case R.id.ordersFragment:
+                    if(profileMenu != null) {
+                        //((AppBarLayout.LayoutParams)).gravity= Gravity.END;
+                        profileMenu.findItem(R.id.action_profile).setVisible(true);
+                        profileMenu.findItem(R.id.action_profile).setEnabled(true);
+                    }                        break;
+                case R.id.itemDescriptionFragment:
+                    ((AppBarLayout.LayoutParams)toolbar.getLayoutParams()).gravity= Gravity.START;
+                    if (actionBar != null)
+                    {
+                        actionBar.setDisplayHomeAsUpEnabled(true); //Set this to true if selecting "home" returns up by a single level in your UI rather than back to the top level or front page.
+                        actionBar.setHomeAsUpIndicator(R.drawable.ic_action_head_back); // set a custom icon for the default home button
+                    }
+                    hideBottomNavigation();
+                    break;
+                case R.id.profileItemFragment:
+                    ((AppBarLayout.LayoutParams)toolbar.getLayoutParams()).gravity= Gravity.START;
+                    if (actionBar != null)
+                    {
+                        actionBar.setDisplayHomeAsUpEnabled(true); //Set this to true if selecting "home" returns up by a single level in your UI rather than back to the top level or front page.
+                        actionBar.setHomeAsUpIndicator(R.drawable.ic_action_head_back); // set a custom icon for the default home button
+                    }
+                    hideBottomNavigation();
+                    break;
+                default:
+                    showBottomNavigation();
+            }
+
+        }
+    };
 }

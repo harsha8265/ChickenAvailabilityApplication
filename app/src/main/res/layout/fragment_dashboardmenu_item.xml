@@ -73,13 +73,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
-            app:customFont="fonts/Roboto-Regular.ttf"
-            android:text="100/kg"
+            app:customFont="fonts/Roboto-Bold.ttf"
+            android:text="@string/item_price_per_kg"
             android:textColor="@color/colorLightBlack"
             android:layout_toEndOf="@+id/item_image_layout"
             android:layout_toRightOf="@+id/item_image_layout"
             android:layout_below="@+id/item_heading"
-            style="@style/TextAppearance.AppCompat.Body1" />
+            android:textSize="20dp"
+             />
 
 
         <com.mobile.chickenavailabilityapplication.util.CustomTextView
