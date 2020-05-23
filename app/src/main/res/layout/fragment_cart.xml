@@ -8,21 +8,55 @@
     android:background="@color/colorPrimary"
     tools:context=".ui.CartFragment">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/deliveryLayout"
+        android:padding="15dp"
+        >
+
+        <com.mobile.chickenavailabilityapplication.util.CustomButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_button_white"
+            android:text="+ Add More Items"
+            android:paddingStart="20dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="10dp"
+            app:customFont="fonts/Lato-Bold.ttf"
+            android:textAllCaps="false"
+            android:textColor="@color/colorBlue"
+            android:textSize="15dp" />
+    </RelativeLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/deliveryLayout"
+        android:layout_above="@+id/cart_checkout_layout"
         android:orientation="horizontal"
         android:clipToPadding="false"
         android:overScrollMode="never"
         tools:context=".ui.cartFragment"
         tools:listitem="@layout/fragment_cart_item"
          />
+        <!-- TODO: Update blank fragment layout -->
+        <com.mobile.chickenavailabilityapplication.util.CustomTextView
+            android:id="@+id/cart_empty_message"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Cart is Empty"
+            app:customFont="fonts/Roboto-Bold.ttf"
+            android:textColor="@color/colorAccent"
+            android:gravity="center"
+            android:visibility="gone"
+            android:textSize="22sp"/>
    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bordered_view"
-        android:layout_above="@+id/list"
         android:layout_alignParentBottom="true"
         android:id="@+id/cart_checkout_layout"
         android:padding="15dp"

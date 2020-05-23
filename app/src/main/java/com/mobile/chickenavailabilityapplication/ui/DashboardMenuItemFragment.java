@@ -20,6 +20,8 @@ import com.mobile.chickenavailabilityapplication.datamodel.MenuItemContainer;
 import com.mobile.chickenavailabilityapplication.dummy.DummyContent;
 import com.mobile.chickenavailabilityapplication.dummy.DummyContent.DummyItem;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * A fragment representing a list of Items.
  * <p/>
@@ -85,7 +87,7 @@ public class DashboardMenuItemFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NotNull Context context) {
         super.onAttach(context);
         if (context instanceof OnListFragmentInteractionListener) {
             mListener = (OnListFragmentInteractionListener) context;

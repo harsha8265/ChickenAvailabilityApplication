@@ -8,24 +8,19 @@
         <!--StatusBar Stuff-->
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">@color/primaryTextColor</item>
+
     </style>
-
-    <style name="HomeTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
-
-        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:actionBarStyle">@style/HomeTheme.MyActionBar</item>
-        <item name="android:windowContentOverlay">@null</item>
-
-
-        <!-- Support library compatibility -->
-        <item name="actionBarStyle">@style/HomeTheme.MyActionBar</item>
-        <item name="colorControlNormal">@android:color/white</item>
+    <!--designs for login and register-->
+    <style name="HomeTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">#07B693</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <!--StatusBar Stuff-->
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+<!--        <item name="android:navigationBarColor">@color/primaryTextColor</item>-->
+
     </style>
+
 </resources>

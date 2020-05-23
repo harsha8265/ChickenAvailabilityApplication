@@ -102,6 +102,11 @@ public class CartItemContainer implements Serializable {
         saveObject();
     }
 
+    public void emptyCart(){
+        cartItems.clear();
+        saveObject();
+    }
+
 
 
 }

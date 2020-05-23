@@ -9,12 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.mobile.chickenavailabilityapplication.R;
 import com.mobile.chickenavailabilityapplication.datamodel.CartItem;
 import com.mobile.chickenavailabilityapplication.datamodel.CartItemContainer;
-import com.mobile.chickenavailabilityapplication.datamodel.MenuItem;
 
 import java.util.ArrayList;
 
@@ -23,7 +22,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,7 +32,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class CartFragment extends Fragment {
+public class CartFragment extends Fragment implements EmptyCartButtonPressed {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -43,10 +41,13 @@ public class CartFragment extends Fragment {
     private OnListFragmentInteractionListener mListener;
     private RecyclerView recyclerView;
     private RelativeLayout checkOutLayout;
+    private RelativeLayout deliveryLayout;
     private Button checkOutButton;
     SwipeController swipeController=null;
     private ArrayList<CartItem> cartItems;
     private CartMenuItemRecyclerViewAdapter cartMenuItemRecyclerViewAdapter;
+    private Context context;
+    private TextView emptyMessage;
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -78,12 +79,7 @@ public class CartFragment extends Fragment {
         // Inflate the layout for this fragment
         View view ;
         cartItems=CartItemContainer.readCartItemContainer().cartItems;
-        if(!cartItems.isEmpty()){
-            view=  inflater.inflate(R.layout.fragment_cart, container, false);
-        }
-        else{
-            view = inflater.inflate(R.layout.fragment_empty_cart, container, false);
-        }
+        view=  inflater.inflate(R.layout.fragment_cart, container, false);
 
         return view;
     }
@@ -92,32 +88,41 @@ public class CartFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (view instanceof RelativeLayout) {
-            Context context = view.getContext();
+            context = view.getContext();
             recyclerView = (RecyclerView) view.findViewById(R.id.list);
+            emptyMessage = (TextView) view.findViewById(R.id.cart_empty_message);
             checkOutLayout=(RelativeLayout) view.findViewById(R.id.cart_checkout_layout);
+            deliveryLayout=(RelativeLayout) view.findViewById(R.id.deliveryLayout);
             checkOutButton=(Button) view.findViewById(R.id.cart_checkout_button);
-            recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
+            if (cartItems.isEmpty()) {
+                hideDeliveryView();
+            }
+            else {
+                showDeliveryView();
+                recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
+                cartMenuItemRecyclerViewAdapter = new CartMenuItemRecyclerViewAdapter(cartItems, view.getContext(), this);
+                recyclerView.setAdapter(cartMenuItemRecyclerViewAdapter);
+                checkOutButton.setText(view.getResources().getString(R.string.cart_checkout,cartMenuItemRecyclerViewAdapter.calculateFees()));
 
-            cartMenuItemRecyclerViewAdapter = new CartMenuItemRecyclerViewAdapter(cartItems, view.getContext());
-            recyclerView.setAdapter(cartMenuItemRecyclerViewAdapter);
-            checkOutButton.setText(view.getResources().getString(R.string.cart_checkout,cartMenuItemRecyclerViewAdapter.calculateFees()));
+            }
+
 
             swipeController = new SwipeController(new SwipeControllerActions() {
                 @Override
                 public void onRightClicked(int position) {
                     //super.onRightClicked(position);
                     CartItemContainer.readCartItemContainer().deleteCartItemByCartID(cartItems.get(position).cartID);
-                    //cartMenuItemRecyclerViewAdapter.mValues.remove(position);
+                    //    cartMenuItemRecyclerViewAdapter.mValues.remove(position);
                     cartMenuItemRecyclerViewAdapter.notifyItemRemoved(position);
                     cartMenuItemRecyclerViewAdapter.notifyItemRangeChanged(position, cartMenuItemRecyclerViewAdapter.getItemCount());
                     checkOutButton.setText(view.getResources().getString(R.string.cart_checkout,cartMenuItemRecyclerViewAdapter.calculateFees()));
+
                     if(!cartItems.isEmpty()){
-                        //((HomeActivity)context).addNotificationBadge(cartItems.size(),R.id.cartFragment);
-                        checkOutLayout.setVisibility(View.VISIBLE);
+                        showDeliveryView();
                     }
                     else{
                         ((HomeActivity)context).removeNotificationBadge(R.id.cartFragment);
-                        checkOutLayout.setVisibility(View.GONE);
+                        hideDeliveryView();
                     }
                 }
 
@@ -144,8 +149,9 @@ public class CartFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+        //mFragmentCallBack = (EmptyCartButtonPressed) context;
         if (context instanceof OnListFragmentInteractionListener) {
             mListener = (OnListFragmentInteractionListener) context;
         } else {
@@ -158,6 +164,28 @@ public class CartFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onEmptyCart(boolean emptyCartButtonPresed) {
+        CartItemContainer.readCartItemContainer().emptyCart();
+        ((HomeActivity)context).removeNotificationBadge(R.id.cartFragment);
+        cartMenuItemRecyclerViewAdapter.notifyItemRangeRemoved(0,cartItems.size());
+        hideDeliveryView();
+    }
+
+    private void showDeliveryView(){
+        recyclerView.setVisibility(View.VISIBLE);
+        checkOutLayout.setVisibility(View.VISIBLE);
+        emptyMessage.setVisibility(View.GONE);
+        deliveryLayout.setVisibility(View.VISIBLE);
+    }
+
+    private void hideDeliveryView(){
+        recyclerView.setVisibility(View.GONE);
+        checkOutLayout.setVisibility(View.GONE);
+        emptyMessage.setVisibility(View.VISIBLE);
+        deliveryLayout.setVisibility(View.GONE);
     }
 
     /**
@@ -174,4 +202,5 @@ public class CartFragment extends Fragment {
         // TODO: Update argument type and name
         //void onCartItemFragmentInteraction(CartItem item);
     }
+
 }
