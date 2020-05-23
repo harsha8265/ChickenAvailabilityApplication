@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:text="1"
                 android:textSize="15dp"
-                android:gravity="center"
+                android:gravity="end"
                 android:layout_weight="1"
                 android:textColor="@color/colorLightBlack"
                 app:customFont="fonts/Lato-Bold.ttf"
@@ -41,7 +41,7 @@
 
             <com.mobile.chickenavailabilityapplication.util.CustomTextView
                 android:id="@+id/item_title"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Chicken Thighs"
                 android:textSize="15dp"
@@ -70,10 +70,9 @@
                 android:layout_height="wrap_content"
                 android:text="100.00rs"
                 android:textSize="15dp"
-                android:gravity="center"
+                android:gravity="end"
                 android:textColor="@color/colorLightBlack"
                 android:maxLines="1"
-                android:textAlignment="center"
                 android:layout_weight="1"
                 app:customFont="fonts/Lato-Regular.ttf"
                 android:layout_toRightOf="@+id/item_heading" />

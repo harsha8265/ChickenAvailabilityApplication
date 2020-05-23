@@ -18,6 +18,7 @@
         <com.mobile.chickenavailabilityapplication.util.CustomButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/addMoreItemsButton"
             android:background="@drawable/round_button_white"
             android:text="+ Add More Items"
             android:paddingStart="20dp"

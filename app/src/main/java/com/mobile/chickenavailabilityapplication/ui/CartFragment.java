@@ -43,6 +43,7 @@ public class CartFragment extends Fragment implements EmptyCartButtonPressed {
     private RelativeLayout checkOutLayout;
     private RelativeLayout deliveryLayout;
     private Button checkOutButton;
+    private Button addMoreItemsButton;
     SwipeController swipeController=null;
     private ArrayList<CartItem> cartItems;
     private CartMenuItemRecyclerViewAdapter cartMenuItemRecyclerViewAdapter;
@@ -93,7 +94,15 @@ public class CartFragment extends Fragment implements EmptyCartButtonPressed {
             emptyMessage = (TextView) view.findViewById(R.id.cart_empty_message);
             checkOutLayout=(RelativeLayout) view.findViewById(R.id.cart_checkout_layout);
             deliveryLayout=(RelativeLayout) view.findViewById(R.id.deliveryLayout);
+            addMoreItemsButton=(Button) view.findViewById(R.id.addMoreItemsButton);
             checkOutButton=(Button) view.findViewById(R.id.cart_checkout_button);
+            addMoreItemsButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    NavController navController = Navigation.findNavController((Activity) view.getContext(), R.id.fragNavHost);
+                    navController.navigate(R.id.action_global_mainFragment);
+                }
+            });
             if (cartItems.isEmpty()) {
                 hideDeliveryView();
             }
