@@ -5,7 +5,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -29,23 +28,23 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class CartMenuItemRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    static final int Normal = 1;
-    static final int Footer = 2;
+    private static final int Normal = 1;
+    private static final int Footer = 2;
 
-    Context mContext;
-    List<CartItem> mValues;
+    private Context mContext;
+    private List<CartItem> mValues;
 
-    LinearLayout customOptionsLayout;
-    LayoutInflater inflater;
+    private LinearLayout customOptionsLayout;
+    private LayoutInflater inflater;
 
-    double itemsSubTotal=0.00;
-    double itemsDeliveryFees=0.00;
-    double itemsTaxesFees=0.00;
-    double itemsTotal=0.00;
-    private final EmptyCartButtonPressed mListener;
+    private double itemsSubTotal=0.00;
+    private double itemsDeliveryFees=0.00;
+    private double itemsTaxesFees=0.00;
+    private double itemsTotal=0.00;
+    private final IAdapterItemListener mListener;
 
 
-    public CartMenuItemRecyclerViewAdapter(List<CartItem> items, Context mContext, EmptyCartButtonPressed mListener) {
+    public CartMenuItemRecyclerViewAdapter(List<CartItem> items, Context mContext, IAdapterItemListener mListener) {
         mValues = items;
         this.mContext = mContext;
         this.mListener=mListener;

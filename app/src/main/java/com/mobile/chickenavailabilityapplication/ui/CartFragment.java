@@ -32,7 +32,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class CartFragment extends Fragment implements EmptyCartButtonPressed {
+public class CartFragment extends Fragment implements IAdapterItemListener {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -44,7 +44,7 @@ public class CartFragment extends Fragment implements EmptyCartButtonPressed {
     private RelativeLayout deliveryLayout;
     private Button checkOutButton;
     private Button addMoreItemsButton;
-    SwipeController swipeController=null;
+    private SwipeController swipeController=null;
     private ArrayList<CartItem> cartItems;
     private CartMenuItemRecyclerViewAdapter cartMenuItemRecyclerViewAdapter;
     private Context context;

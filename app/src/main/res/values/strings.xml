@@ -43,7 +43,7 @@
     <string name="item_price_per_kg">₹%1$.2f/kg</string>
     <string name="item_options">%1$s:</string>
     <string name="add_to_cart">Add to Cart - ₹%1$.2f</string>
-    <string name="cart_checkout">CheckOut - ₹%1$.2f</string>
+    <string name="cart_checkout">Review Changes - ₹%1$.2f</string>
     <string name="item_quantity">%1$.2fkg</string>
     <string name="selected_option">✓%1$s</string>
 
