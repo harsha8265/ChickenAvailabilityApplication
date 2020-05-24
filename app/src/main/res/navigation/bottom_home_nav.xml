@@ -49,6 +49,16 @@
         <action
             android:id="@+id/action_cartFragment_to_itemDescriptionFragment"
             app:destination="@id/itemDescriptionFragment" />
+        <action
+            android:id="@+id/action_cartFragment_to_reviewCartItemFragment"
+            app:destination="@id/reviewCartItemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/reviewCartItemFragment"
+        android:name="com.mobile.chickenavailabilityapplication.ui.ReviewCartItemFragment"
+        android:label="Review Order"
+        tools:layout="@layout/fragment_review_cart_item_list" >
+
     </fragment>
 
     <fragment

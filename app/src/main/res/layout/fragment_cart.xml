@@ -25,10 +25,10 @@
             android:paddingTop="10dp"
             android:paddingEnd="20dp"
             android:paddingBottom="10dp"
-            app:customFont="fonts/Lato-Bold.ttf"
+            app:customFont="fonts/Roboto-Bold.ttf"
             android:textAllCaps="false"
             android:textColor="@color/colorBlue"
-            android:textSize="15dp" />
+            android:textSize="15sp" />
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -69,10 +69,10 @@
             android:layout_height="wrap_content"
             android:background="@drawable/roundedbordered_red"
             android:text="@string/cart_checkout"
-            app:customFont="fonts/Lato-Bold.ttf"
+            app:customFont="fonts/Roboto-Bold.ttf"
             android:textAllCaps="false"
             android:textColor="@color/colorWhite"
-            android:textSize="15dp" />
+            android:textSize="15sp" />
     </RelativeLayout>
 
 </RelativeLayout>

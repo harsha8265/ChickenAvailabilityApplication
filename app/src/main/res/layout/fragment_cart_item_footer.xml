@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:id="@+id/item_view"
-    android:layout_margin="5dp"
+    android:layout_margin="15dp"
     android:background="@color/colorPrimary"
     android:layout_height="wrap_content"
     >
@@ -29,11 +29,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Items Subtotal:"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:gravity="start"
             android:layout_weight="2"
             android:textColor="@color/colorLightBlack"
-            app:customFont="fonts/Lato-Lato-Regular.ttf"
+            app:customFont="fonts/Roboto-Regular.ttf"
 
             />
 
@@ -43,12 +43,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="100.00rs"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:gravity="end"
             android:textColor="@color/colorLightBlack"
             android:maxLines="1"
             android:layout_weight="1"
-            app:customFont="fonts/Lato-Regular.ttf"
+            app:customFont="fonts/Roboto-Regular.ttf"
             android:layout_toRightOf="@+id/item_heading" />
     </LinearLayout>
 
@@ -69,11 +69,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Delivery Fee:"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:gravity="start"
             android:layout_weight="2"
             android:textColor="@color/colorLightBlack"
-            app:customFont="fonts/Lato-Lato-Regular.ttf"
+            app:customFont="fonts/Roboto-Regular.ttf"
 
             />
 
@@ -83,12 +83,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="100.00rs"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:gravity="end"
             android:textColor="@color/colorLightBlack"
             android:maxLines="1"
             android:layout_weight="1"
-            app:customFont="fonts/Lato-Regular.ttf"
+            app:customFont="fonts/Roboto-Regular.ttf"
             android:layout_toRightOf="@+id/item_heading" />
     </LinearLayout>
     <LinearLayout
@@ -108,11 +108,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Taxes and Fees:"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:gravity="start"
             android:layout_weight="2"
             android:textColor="@color/colorLightBlack"
-            app:customFont="fonts/Lato-Lato-Regular.ttf"
+            app:customFont="fonts/Roboto-Regular.ttf"
 
             />
 
@@ -122,12 +122,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="100.00rs"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:gravity="end"
             android:textColor="@color/colorLightBlack"
             android:maxLines="1"
             android:layout_weight="1"
-            app:customFont="fonts/Lato-Regular.ttf"
+            app:customFont="fonts/Roboto-Regular.ttf"
             android:layout_toRightOf="@+id/item_heading" />
     </LinearLayout>
 
@@ -148,11 +148,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Total:"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:gravity="start"
             android:layout_weight="2"
             android:textColor="@color/colorLightBlack"
-            app:customFont="fonts/Lato-Lato-Regular.ttf"
+            app:customFont="fonts/Roboto-Regular.ttf"
 
             />
 
@@ -162,12 +162,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="100.00rs"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:gravity="end"
             android:textColor="@color/colorLightBlack"
             android:maxLines="1"
             android:layout_weight="1"
-            app:customFont="fonts/Lato-Regular.ttf"
+            app:customFont="fonts/Roboto-Regular.ttf"
             android:layout_toRightOf="@+id/item_heading" />
     </LinearLayout>
     <LinearLayout
@@ -188,9 +188,9 @@
         android:clickable="true"
         android:focusable="true"
         android:text="X Empty Cart"
-        app:customFont="fonts/Lato-Bold.ttf"
+        app:customFont="fonts/Roboto-Bold.ttf"
         android:textColor="@color/colorBlue"
-        android:textSize="18dp" />
+        android:textSize="18sp" />
     </LinearLayout>
 
 

@@ -44,7 +44,7 @@ public class CartMenuItemRecyclerViewAdapter extends RecyclerView.Adapter<Recycl
     private final IAdapterItemListener mListener;
 
 
-    public CartMenuItemRecyclerViewAdapter(List<CartItem> items, Context mContext, IAdapterItemListener mListener) {
+     CartMenuItemRecyclerViewAdapter(List<CartItem> items, Context mContext, IAdapterItemListener mListener) {
         mValues = items;
         this.mContext = mContext;
         this.mListener=mListener;
@@ -54,7 +54,6 @@ public class CartMenuItemRecyclerViewAdapter extends RecyclerView.Adapter<Recycl
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
         View view;
-
        if(viewType==Footer){
                 view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.fragment_cart_item_footer, parent, false);
@@ -133,7 +132,7 @@ public class CartMenuItemRecyclerViewAdapter extends RecyclerView.Adapter<Recycl
     }
 
 
-    public class ItemViewHolder extends RecyclerView.ViewHolder {
+    public  class ItemViewHolder extends RecyclerView.ViewHolder {
         View mView;
         TextView itemNumber;
         TextView itemTitle;
@@ -144,11 +143,11 @@ public class CartMenuItemRecyclerViewAdapter extends RecyclerView.Adapter<Recycl
         ItemViewHolder(@NonNull View itemView) {
             super(itemView);
             mView=itemView;
-            itemNumber = (TextView) itemView.findViewById(R.id.item_number);
-            itemTitle = (TextView) itemView.findViewById(R.id.item_title);
-            itemQuantity = (TextView) itemView.findViewById(R.id.item_quantity);
-            itemSubTotal = (TextView) itemView.findViewById(R.id.item_subtotal);
-            customOptionsLayout = (LinearLayout) itemView.findViewById(R.id.custom_options_layout);
+            itemNumber =  itemView.findViewById(R.id.item_number);
+            itemTitle =  itemView.findViewById(R.id.item_title);
+            itemQuantity =  itemView.findViewById(R.id.item_quantity);
+            itemSubTotal =  itemView.findViewById(R.id.item_subtotal);
+            customOptionsLayout =  itemView.findViewById(R.id.custom_options_layout);
         }
     }
     public static class FooterViewHolder extends RecyclerView.ViewHolder {
@@ -160,15 +159,15 @@ public class CartMenuItemRecyclerViewAdapter extends RecyclerView.Adapter<Recycl
         RelativeLayout footerView;
         View mView;
 
-        public FooterViewHolder(@NonNull View itemView) {
+         FooterViewHolder(@NonNull View itemView) {
             super(itemView);
             mView=itemView;
-            itemsSubtotal = (TextView) itemView.findViewById(R.id.item_subtotal_price);
-            itemsDeliveryFee = (TextView) itemView.findViewById(R.id.item_deliveryfee_price);
-            itemsTaxesFees = (TextView) itemView.findViewById(R.id.item_tax_fee_price);
-            itemsTotal = (TextView) itemView.findViewById(R.id.item_total_fee_price);
-            emptyCartButton = (TextView) itemView.findViewById(R.id.items_empty_cart_button);
-            footerView=(RelativeLayout) itemView.findViewById(R.id.item_view) ;
+            itemsSubtotal =  itemView.findViewById(R.id.item_subtotal_price);
+            itemsDeliveryFee =  itemView.findViewById(R.id.item_deliveryfee_price);
+            itemsTaxesFees =  itemView.findViewById(R.id.item_tax_fee_price);
+            itemsTotal =  itemView.findViewById(R.id.item_total_fee_price);
+            emptyCartButton =  itemView.findViewById(R.id.items_empty_cart_button);
+            footerView= itemView.findViewById(R.id.item_view) ;
 
         }
     }

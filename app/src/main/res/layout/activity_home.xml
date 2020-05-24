@@ -17,77 +17,20 @@
         android:theme="@style/AppTheme.AppBarOverlay"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            app:title="Menu"
+            app:contentInsetStart="0dp"
+            android:layout_weight="1"
             android:layout_gravity="center"
             android:theme="@style/Theme.GuidelinesCompat.Light"
             android:homeAsUpIndicator="@drawable/head_back"
             android:background="?attr/colorPrimary"/>
-        <!--<androidx.appcompat.widget.ActionMenuView
-            android:id="@+id/menuItem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            app:menu="@menu/profile_menu"
 
-            >
-        </androidx.appcompat.widget.ActionMenuView>-->
 
     </com.google.android.material.appbar.AppBarLayout>
-
-    <!--<include app:layout_constraintTop_toTopOf="parent"
-        layout="@layout/custom_toolbar" />-->
-    <!--<androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_marginTop="8dp"
-        android:gravity="center_horizontal"
-        style="@style/Theme.GuidelinesCompat.Light.DarkToolbar"
-        android:background="?attr/colorPrimary"
-        app:layout_constraintTop_toTopOf="parent" >-->
-        <!--<com.mobile.chickenavailabilityapplication.util.CustomTextView
-            android:id="@+id/title_heading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Menu"
-            android:textSize="15sp"
-            android:layout_gravity="center"
-            android:textColor="@color/colorLightBlack"
-            app:customFont="fonts/Roboto-Bold.ttf"
-
-            />
-
-    </androidx.appcompat.widget.Toolbar>-->
-    <!--<androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/toolbar"
-        android:minHeight="?attr/actionBarSize"
-        android:elevation="6dp"
-        android:background="@color/colorPrimary"
-        app:navigationIcon="@drawable/head_back"
-        app:contentInsetStart="@dimen/second_keyline"
-        app:theme="@style/Theme.GuidelinesCompat.Light.DarkToolbar"
-        >
-
-    </androidx.appcompat.widget.Toolbar>-->
-    <!--<androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize"
-        android:elevation="6dp"
-        android:background="@color/colorPrimary"
-        app:navigationIcon="@drawable/head_back"
-        app:contentInsetStart="@dimen/second_keyline"
-        app:theme="@style/Theme.GuidelinesCompat.DarkToolbar"
-        app:popupTheme="@style/Toolbar.Popup.AppCompat"
-</androidx.appcompat.widget.Toolbar>-->
-
 
     <View
         android:id="@+id/toolbardivider"
@@ -101,13 +44,10 @@
         android:id="@+id/frameFragmentLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavView"
         app:layout_constraintTop_toBottomOf="@+id/toolbardivider">
 
-        <!-- <androidx.core.widget.NestedScrollView
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">-->
+
         <fragment
             android:id="@+id/fragNavHost"
             android:name="androidx.navigation.fragment.NavHostFragment"
@@ -115,7 +55,6 @@
             android:layout_height="match_parent"
             app:defaultNavHost="true"
             app:navGraph="@navigation/bottom_home_nav" />
-        <!--</androidx.core.widget.NestedScrollView>-->
 
     </FrameLayout>
 
@@ -129,17 +68,13 @@
         app:itemIconTint="@drawable/bottom_navigation_item_colors"
         app:itemTextColor="@drawable/bottom_navigation_item_colors"
         app:itemTextAppearanceActive="@style/BottomNavigationView.Active"
-        app:itemTextAppearanceInactive="@style/BottomNavigationView"        app:layout_constraintBottom_toBottomOf="parent"
+        app:itemTextAppearanceInactive="@style/BottomNavigationView"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:menu="@menu/navigation"
         />
 
-   <!-- <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_above="@id/bottomNavView"
-        android:background="@drawable/shadow_rect"
-        app:layout_constraintBottom_toBottomOf="@+id/frameFragmentLayout" />-->
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.mobile.chickenavailabilityapplication.util.CustomTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:text="Your Information"
+    app:customFont="fonts/Roboto-Bold.ttf"
+    android:textColor="@color/colorLightBlack"
+    android:gravity="start"
+    android:id="@+id/header_title"
+    android:textSize="16sp"
+    android:padding="5dp"
+    android:orientation="horizontal">
+
+
+</com.mobile.chickenavailabilityapplication.util.CustomTextView>

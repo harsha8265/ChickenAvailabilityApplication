@@ -114,6 +114,13 @@ public class CartFragment extends Fragment implements IAdapterItemListener {
                 checkOutButton.setText(view.getResources().getString(R.string.cart_checkout,cartMenuItemRecyclerViewAdapter.calculateFees()));
 
             }
+            checkOutButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    NavController navController = Navigation.findNavController((Activity) view.getContext(), R.id.fragNavHost);
+                    navController.navigate(R.id.action_cartFragment_to_reviewCartItemFragment);
+                }
+            });
 
 
             swipeController = new SwipeController(new SwipeControllerActions() {

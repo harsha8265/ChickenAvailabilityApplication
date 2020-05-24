@@ -2,6 +2,7 @@ package com.mobile.chickenavailabilityapplication.ui;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -15,7 +16,10 @@ import com.mobile.chickenavailabilityapplication.datamodel.CartItem;
 import com.mobile.chickenavailabilityapplication.datamodel.CartItemContainer;
 import com.mobile.chickenavailabilityapplication.datamodel.Customer;
 import com.mobile.chickenavailabilityapplication.dummy.DummyContent;
+import com.mobile.chickenavailabilityapplication.util.ViewUtils;
 
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,6 +27,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ActionMenuView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,7 +52,8 @@ public class HomeActivity extends ParentActivity implements DashboardMenuItemFra
                                                             OrdersFragment.OnListFragmentInteractionListener,
                                                             CartFragment.OnListFragmentInteractionListener,
                                                             ItemDescriptionFragment.OnFragmentInteractionListener,
-                                                            ProfileItemFragment.OnListFragmentInteractionListener
+                                                            ProfileItemFragment.OnListFragmentInteractionListener,
+                                                            ReviewCartItemFragment.OnListFragmentInteractionListener
 {
 
     BottomNavigationView bottomNavigationView;
@@ -57,12 +63,27 @@ public class HomeActivity extends ParentActivity implements DashboardMenuItemFra
     BottomNavigationMenuView mBottomNavigationMenuView;
     private Boolean mNewAccount=false;
     Menu profileMenu;
+    private ActionMenuView amvMenu;
+    float deviceWidth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         SharedPreferences preferences = getApplicationContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        /*DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        deviceWidth = displayMetrics.widthPixels;*/
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        //DisplayMetrics outMetrics = new DisplayMetrics ();
+        //display.getMetrics(outMetrics);
+
+       // float density  = getResources().getDisplayMetrics().density;
+        //float dpHeight = outMetrics.heightPixels / density;
+       // deviceWidth  = outMetrics.widthPixels ;
+        deviceWidth  = size.x ;
         mNewAccount = preferences.getBoolean("NewAccount",false);
         setUpNavigation();
     }
@@ -75,6 +96,12 @@ public class HomeActivity extends ParentActivity implements DashboardMenuItemFra
     public void setUpNavigation(){
         bottomNavigationView =  findViewById(R.id.bottomNavView);
         toolbar =   findViewById(R.id.toolbar);
+        /*amvMenu.setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                return onOptionsItemSelected(menuItem);
+            }
+        });*/
         setSupportActionBar(toolbar);
 
         Set<Integer> topLevelDestinations = new HashSet<>();
@@ -136,9 +163,14 @@ public class HomeActivity extends ParentActivity implements DashboardMenuItemFra
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.profile_menu, menu);
-        profileMenu = menu;
+        /*MenuItem searchItem = profileMenu.findItem(R.id.action_profile);
+        ActionMenuView searchView =
+                (ActionMenuView) searchItem.getActionView();
+        searchView.setGravity(Gravity.END);*/
+        profileMenu=menu;
         if(profileMenu != null) {
             profileMenu.findItem(R.id.action_profile).setVisible(false);
+            //profileMenu.findItem(R.id.action_profile).getActionView().setForegroundGravity(Gravity.END);
             profileMenu.findItem(R.id.action_profile).setEnabled(false);
         }
         return true;
@@ -167,6 +199,11 @@ public class HomeActivity extends ParentActivity implements DashboardMenuItemFra
                 profileMenu.findItem(R.id.action_profile).setEnabled(false);
             }
             ((AppBarLayout.LayoutParams)toolbar.getLayoutParams()).gravity= Gravity.CENTER;
+            //int dp =deviceWidth/(int)getResources().getDisplayMetrics().density ;
+            //toolbar.setTitleMarginStart((int)deviceWidth/2);
+            toolbar.setContentInsetsRelative((((int)deviceWidth/2)-50),0);
+            //toolbar.setContentInsetsAbsolute(150,0);
+            //toolbar.setLayoutParams(Lay);
             showBottomNavigation();
             if(CartItemContainer.readCartItemContainer().cartItems.size()!=0)
                 addNotificationBadge(CartItemContainer.readCartItemContainer().cartItems.size(),R.id.cartFragment);
@@ -178,8 +215,7 @@ public class HomeActivity extends ParentActivity implements DashboardMenuItemFra
                 actionBar.setDisplayHomeAsUpEnabled(false); //Set this to true if selecting "home" returns up by a single level in your UI rather than back to the top level or front page.
             }
             switch(destination.getId()){
-                case R.id.dashboardMenuItemFragment:
-                    break;
+
                 case R.id.ordersFragment:
                     if(profileMenu != null) {
                         //((AppBarLayout.LayoutParams)).gravity= Gravity.END;
@@ -187,16 +223,12 @@ public class HomeActivity extends ParentActivity implements DashboardMenuItemFra
                         profileMenu.findItem(R.id.action_profile).setEnabled(true);
                     }                        break;
                 case R.id.itemDescriptionFragment:
-                    ((AppBarLayout.LayoutParams)toolbar.getLayoutParams()).gravity= Gravity.START;
-                    if (actionBar != null)
-                    {
-                        actionBar.setDisplayHomeAsUpEnabled(true); //Set this to true if selecting "home" returns up by a single level in your UI rather than back to the top level or front page.
-                        actionBar.setHomeAsUpIndicator(R.drawable.ic_action_head_back); // set a custom icon for the default home button
-                    }
-                    hideBottomNavigation();
-                    break;
                 case R.id.profileItemFragment:
+                case R.id.reviewCartItemFragment:
                     ((AppBarLayout.LayoutParams)toolbar.getLayoutParams()).gravity= Gravity.START;
+                    toolbar.setContentInsetsRelative(0,0);
+
+                    // toolbar.setContentInsetsAbsolute(0,0);
                     if (actionBar != null)
                     {
                         actionBar.setDisplayHomeAsUpEnabled(true); //Set this to true if selecting "home" returns up by a single level in your UI rather than back to the top level or front page.
@@ -210,4 +242,10 @@ public class HomeActivity extends ParentActivity implements DashboardMenuItemFra
 
         }
     };
+
+
+    @Override
+    public void onReviewCartListFragmentInteraction(String category) {
+
+    }
 }
