@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import com.mobile.chickenavailabilityapplication.R;
 import com.mobile.chickenavailabilityapplication.datamodel.CartItem;
 import com.mobile.chickenavailabilityapplication.datamodel.CartItemContainer;
+import com.mobile.chickenavailabilityapplication.datamodel.Customer;
 import com.mobile.chickenavailabilityapplication.datamodel.ReviewCartItemSection;
 import com.mobile.chickenavailabilityapplication.ui.ReviewCartItemFragment.OnListFragmentInteractionListener;
 
@@ -100,6 +102,7 @@ public class MyReviewCartItemRecyclerViewAdapter extends RecyclerView.Adapter<Re
             itemHolder.mItemHeader.setText(itemHolder.reviewCartItemSection.category);
             if(itemHolder.reviewCartItemSection.category.equals("Order Details:")){
                 addordersLinearLayout.setVisibility(View.VISIBLE);
+                itemHolder.rightArrowButton.setVisibility(View.GONE);
                 LayoutInflater layoutInflater= LayoutInflater.from(mContext);
                 if(!cartItems.isEmpty()){
                     for(int i=0;i<cartItems.size();i++){
@@ -107,6 +110,19 @@ public class MyReviewCartItemRecyclerViewAdapter extends RecyclerView.Adapter<Re
                     }
                 }
 
+            }
+            else if(itemHolder.reviewCartItemSection.category.equals("Contact info:")){
+                addordersLinearLayout.setVisibility(View.VISIBLE);
+                itemHolder.rightArrowButton.setVisibility(View.VISIBLE);
+                LayoutInflater layoutInflater= LayoutInflater.from(mContext);
+                addProfileInfotoView(layoutInflater,Customer.getInstance().firstName+" "+Customer.getInstance().lastName,mContext);
+                addProfileInfotoView(layoutInflater,Customer.getInstance().cellNumber,mContext);
+            }
+            else if(itemHolder.reviewCartItemSection.category.equals("Deliver to:")){
+                addordersLinearLayout.setVisibility(View.VISIBLE);
+                itemHolder.rightArrowButton.setVisibility(View.VISIBLE);
+                LayoutInflater layoutInflater= LayoutInflater.from(mContext);
+                addProfileInfotoView(layoutInflater,"6310 Canary Falls LN, Apt 206, Raleigh, NC , 27606",mContext);
             }
             else{
                 addordersLinearLayout.setVisibility(View.GONE);
@@ -153,6 +169,7 @@ public class MyReviewCartItemRecyclerViewAdapter extends RecyclerView.Adapter<Re
         ReviewCartItemSection reviewCartItemSection;
         CardView mItemLayout;
         TextView mItemHeader;
+        ImageButton rightArrowButton;
 
 
         ItemViewHolder(@NonNull View itemView) {
@@ -161,6 +178,7 @@ public class MyReviewCartItemRecyclerViewAdapter extends RecyclerView.Adapter<Re
             mItemLayout= mView.findViewById(R.id.item_header_layout);
             mItemHeader= mView.findViewById(R.id.item_header);
             addordersLinearLayout= mView.findViewById(R.id.addOrdersLayout);
+            rightArrowButton= mView.findViewById(R.id.rightArrowButton);
         }
     }
 
@@ -229,6 +247,17 @@ public class MyReviewCartItemRecyclerViewAdapter extends RecyclerView.Adapter<Re
 
         addordersLinearLayout.addView(dataView);
     }
+
+    private void addProfileInfotoView(LayoutInflater layoutInflater, String customerDetail, Context context){
+        TextView valueTV = new TextView(context);
+        valueTV.setText(customerDetail);
+        valueTV.setTextColor(context.getResources().getColor(R.color.colorLightBlack));
+        valueTV.setGravity(Gravity.START);
+        valueTV.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
+
+        addordersLinearLayout.addView(valueTV);
+    }
+
 
 
 }

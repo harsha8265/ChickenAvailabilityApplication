@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_margin="15dp"
+    android:layout_margin="5dp"
     android:focusable="true"
     android:clickable="true"
     app:cardCornerRadius="3dp"
@@ -12,9 +12,15 @@
     android:id="@+id/item_header_layout"
     android:tag="cards main container">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        >
+
     <com.mobile.chickenavailabilityapplication.util.CustomTextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:text="Contact info:"
         app:customFont="fonts/Roboto-Bold.ttf"
         android:id="@+id/item_header"
@@ -25,10 +31,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/addOrdersLayout"
+        android:layout_below="@+id/item_header"
         android:layout_gravity="bottom"
         android:orientation="vertical">
 
     </LinearLayout>
 
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ico_arrow_right"
+        android:id="@+id/rightArrowButton"
+        android:layout_alignParentEnd="true"
+        android:layout_centerInParent="true"
+        android:background="@android:color/transparent"
+        />
+    </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
