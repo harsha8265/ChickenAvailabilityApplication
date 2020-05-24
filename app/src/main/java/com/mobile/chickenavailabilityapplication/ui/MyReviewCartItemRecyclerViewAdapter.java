@@ -99,32 +99,37 @@ public class MyReviewCartItemRecyclerViewAdapter extends RecyclerView.Adapter<Re
                 ItemViewHolder itemHolder=(ItemViewHolder)holder;
                 itemHolder.reviewCartItemSection = mValues.get(position);
                 itemHolder.mItemHeader.setText(itemHolder.reviewCartItemSection.category);
-                if(itemHolder.reviewCartItemSection.category.equals("Order Details:")){
-                    addordersLinearLayout.setVisibility(View.VISIBLE);
-                    itemHolder.rightArrowButton.setVisibility(View.GONE);
-                    LayoutInflater layoutInflater= LayoutInflater.from(mContext);
-                    if(!cartItems.isEmpty()){
-                        for(int i=0;i<cartItems.size();i++){
-                            addOrderstoView(layoutInflater,cartItems.get(i),mContext,i);
+                switch (itemHolder.reviewCartItemSection.category) {
+                    case "Order Details:": {
+                        addordersLinearLayout.setVisibility(View.VISIBLE);
+                        itemHolder.rightArrowButton.setVisibility(View.GONE);
+                        LayoutInflater layoutInflater = LayoutInflater.from(mContext);
+                        if (!cartItems.isEmpty()) {
+                            for (int i = 0; i < cartItems.size(); i++) {
+                                addOrderstoView(layoutInflater, cartItems.get(i), mContext, i);
+                            }
                         }
-                    }
 
-                }
-                else if(itemHolder.reviewCartItemSection.category.equals("Contact info:")){
-                    addordersLinearLayout.setVisibility(View.VISIBLE);
-                    itemHolder.rightArrowButton.setVisibility(View.VISIBLE);
-                    LayoutInflater layoutInflater= LayoutInflater.from(mContext);
-                    addProfileInfotoView(layoutInflater,Customer.getInstance().firstName+" "+Customer.getInstance().lastName,mContext);
-                    addProfileInfotoView(layoutInflater,Customer.getInstance().cellNumber,mContext);
-                }
-                else if(itemHolder.reviewCartItemSection.category.equals("Deliver to:")){
-                    addordersLinearLayout.setVisibility(View.VISIBLE);
-                    itemHolder.rightArrowButton.setVisibility(View.VISIBLE);
-                    LayoutInflater layoutInflater= LayoutInflater.from(mContext);
-                    addProfileInfotoView(layoutInflater,"6310 Canary Falls LN, Apt 206, Raleigh, NC , 27606",mContext);
-                }
-                else{
-                    addordersLinearLayout.setVisibility(View.GONE);
+                        break;
+                    }
+                    case "Contact info:": {
+                        addordersLinearLayout.setVisibility(View.VISIBLE);
+                        itemHolder.rightArrowButton.setVisibility(View.VISIBLE);
+                        LayoutInflater layoutInflater = LayoutInflater.from(mContext);
+                        addProfileInfotoView(layoutInflater, Customer.getInstance().firstName + " " + Customer.getInstance().lastName, mContext);
+                        addProfileInfotoView(layoutInflater, Customer.getInstance().cellNumber, mContext);
+                        break;
+                    }
+                    case "Deliver to:": {
+                        addordersLinearLayout.setVisibility(View.VISIBLE);
+                        itemHolder.rightArrowButton.setVisibility(View.VISIBLE);
+                        LayoutInflater layoutInflater = LayoutInflater.from(mContext);
+                        addProfileInfotoView(layoutInflater, "6310 Canary Falls LN, Apt 206, Raleigh, NC , 27606", mContext);
+                        break;
+                    }
+                    default:
+                        addordersLinearLayout.setVisibility(View.GONE);
+                        break;
                 }
                 break;
         }
