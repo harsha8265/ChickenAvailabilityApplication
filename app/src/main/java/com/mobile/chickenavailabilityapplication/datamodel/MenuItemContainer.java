@@ -27,13 +27,15 @@ public class MenuItemContainer extends Handler implements Serializable {
 
     private static MenuItemContainer menuItemContainer = newSingleton();
     private static final String MenuItemKey = "menuitem";
-    public static final String IdKey = "productid";
-    public static final String ItemHeadingKey = "itemheading";
-    public static final String ItemImageKey = "itemimage";
-    public static final String ItemSubHeadingKey = "itemsubheading";
-    public static final String AvailableQuantityKey = "availablequantity";
+    public static final String IdKey = "productId";
+    public static final String ItemHeadingKey = "heading";
+    public static final String ItemImageKey = "imageUrl";
+    public static final String ItemSubHeadingKey = "subHeading";
+    public static final String AvailableQuantityKey = "quantity";
     public static final String PriceKey = "price";
-    public static final String OptionsMapKey = "optionsmap";
+    public static final String OptionsMapKey = "optionsMap";
+    public static final String PieceOptions = "Piece";
+    public static final String SkinOptions = "Skin";
 
     public ArrayList<MenuItem> menuItems;
 
@@ -86,7 +88,9 @@ public class MenuItemContainer extends Handler implements Serializable {
     }
 
 
-    public void populateMenuItemObject() {
+    /*public void populateMenuItemObject() {
+        getMenuItems(this);
+        MenuItemContainer.readMenuItemContainer();
         HashMap<String,ArrayList<String>> completeOptionsMap = new HashMap<String,ArrayList<String>>();
         completeOptionsMap.put("Skin", new ArrayList<>(Arrays.asList("Skinless","Skin")));
         completeOptionsMap.put("Size", new ArrayList<>(Arrays.asList("Small","Medium","Large")));
@@ -116,7 +120,7 @@ public class MenuItemContainer extends Handler implements Serializable {
 
          saveObject();
 
-    }
+    }*/
 
     public void getMenuItems(Handler handler) {
         this.mHandler = handler;
@@ -127,7 +131,7 @@ public class MenuItemContainer extends Handler implements Serializable {
     private NetworkObject getInspirationsNetworkObject() {
         NetworkObject obj = new NetworkObject();
         obj.mId = NetworkConstants.GET_MENUITEMS_SUCCESS;
-        obj.mRequestUrl = "";
+        obj.mRequestUrl = NetworkConstants.PRODUCTS_URL;
         return obj;
     }
 
@@ -139,23 +143,47 @@ public class MenuItemContainer extends Handler implements Serializable {
                 if (msg.obj != null) {
                     String json = object.mResponseJson;
                     try {
-                        JSONObject jsonObject = new JSONObject(json);
-                        JSONArray jsonarray = jsonObject.getJSONArray("items");
+                        JSONArray jsonarray = new JSONArray(json);
                         MenuItem menuItem=null;
                         for (int i = 0; i < jsonarray.length(); i++) {
                             JSONObject jsonobject = jsonarray.getJSONObject(i);
-                            JSONObject jsonobject1 = jsonobject.getJSONObject("fields");
                             menuItem=new MenuItem();
-                            menuItem.productID= jsonobject1.getString(IdKey);
-                            menuItem.itemHeading = jsonobject1.getString(ItemHeadingKey);
-                            menuItem.itemSubheading=jsonobject1.getString(ItemSubHeadingKey);
-                            menuItem.itemImage=jsonobject1.getString(ItemImageKey);
-                            menuItem.availableQuantity=jsonobject1.getInt(AvailableQuantityKey);
-                            menuItem.price=jsonobject1.getInt(PriceKey);
-                            menuItems.add(menuItem);
+                            menuItem.productID= jsonobject.getString(IdKey);
+                            menuItem.itemHeading = jsonobject.getString(ItemHeadingKey);
+                            menuItem.itemSubheading=jsonobject.getString(ItemSubHeadingKey);
+                            menuItem.imageUrl=jsonobject.getString(ItemImageKey);
+                            menuItem.availableQuantity=jsonobject.getInt(AvailableQuantityKey);
+                            menuItem.price=jsonobject.getInt(PriceKey);
+                            JSONObject options = jsonobject.getJSONObject(OptionsMapKey);
+                            HashMap<String,ArrayList<String>> completeOptionsMap = new HashMap<>();
+                            if(options.length()!=0){
+                                if(options.has(PieceOptions)){
+                                    JSONArray pieceOptions = options.getJSONArray(PieceOptions);
+                                    if(pieceOptions!=null && pieceOptions.length()!=0){
+                                        ArrayList<String> pieceOptionsArray = new ArrayList<>();
+                                        for (int j = 0; j<pieceOptions.length(); j++) {
+                                            pieceOptionsArray.add(pieceOptions.getString(j));
+                                        }
+                                        completeOptionsMap.put(PieceOptions, pieceOptionsArray);
+                                    }
+                                }
 
+                                if(options.has(SkinOptions)){
+                                    JSONArray skinOptions = options.getJSONArray(SkinOptions);
+
+                                    if(skinOptions!=null && skinOptions.length()!=0){
+                                        ArrayList<String> skinOptionsArray = new ArrayList<>();
+                                        for (int j = 0; j<skinOptions.length(); j++) {
+                                            skinOptionsArray.add(skinOptions.getString(j));
+                                        }
+                                        completeOptionsMap.put(SkinOptions,skinOptionsArray);
+                                    }
+                                }
+                            }
+                            menuItem.optionsMap = completeOptionsMap;
+                            menuItems.add(menuItem);
                         }
-                        saveObject();
+                        //saveObject();
                         PostNotification.sendMessage(NetworkConstants.GET_MENUITEMS_SUCCESS, this, mHandler);
                     }
                     catch (JSONException e) {

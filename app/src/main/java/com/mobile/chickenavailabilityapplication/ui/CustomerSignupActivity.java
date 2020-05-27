@@ -25,9 +25,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mobile.chickenavailabilityapplication.R;
 import com.mobile.chickenavailabilityapplication.datamodel.Customer;
+import com.mobile.chickenavailabilityapplication.datamodel.MenuItemContainer;
 import com.mobile.chickenavailabilityapplication.network.NetworkConstants;
 import com.mobile.chickenavailabilityapplication.util.ViewUtils;
 
@@ -422,6 +424,9 @@ public class CustomerSignupActivity extends AppCompatActivity {
                 case NetworkConstants.CUSTOMER_DETAILS_SAVE_SUCCESS:
                      //showProgress(true);
                     showProgress(false);
+                    MenuItemContainer.readMenuItemContainer().getMenuItems(new SignUpActivityHandler());
+                     break;
+                case NetworkConstants.GET_MENUITEMS_SUCCESS:
                     Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                     SharedPreferences preferences = getApplicationContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
@@ -429,7 +434,8 @@ public class CustomerSignupActivity extends AppCompatActivity {
                     editor.apply();
                     startActivity(intent);
                     finish();
-                     break;
+                    Toast.makeText(getApplicationContext(), "Menu Items Loaded", Toast.LENGTH_LONG).show();
+                    break;
                 default:
                     break;
             }

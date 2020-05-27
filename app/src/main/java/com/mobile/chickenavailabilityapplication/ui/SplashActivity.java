@@ -3,12 +3,16 @@ package com.mobile.chickenavailabilityapplication.ui;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Bundle;
+import android.os.Message;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mobile.chickenavailabilityapplication.R;
 import com.mobile.chickenavailabilityapplication.datamodel.Customer;
+import com.mobile.chickenavailabilityapplication.datamodel.MenuItem;
 import com.mobile.chickenavailabilityapplication.datamodel.MenuItemContainer;
+import com.mobile.chickenavailabilityapplication.network.NetworkConstants;
 import com.mobile.chickenavailabilityapplication.util.CustomTextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,9 +44,9 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void onSplashDurationComplete() {
-        if(MenuItemContainer.readMenuItemContainer().menuItems.isEmpty()){
-            MenuItemContainer.readMenuItemContainer().populateMenuItemObject();
-        }
+        /*if(MenuItemContainer.readMenuItemContainer().menuItems.isEmpty()){
+            MenuItemContainer.readMenuItemContainer().getMenuItems(new SplashActivityHandler());
+        }*/
         //Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
         //startActivity(intent);
         if (Customer.getInstance().cellNumber == null ) {
@@ -56,5 +60,22 @@ public class SplashActivity extends AppCompatActivity {
         }
 
         finish();
+    }
+
+    private class SplashActivityHandler extends Handler {
+
+        @Override
+        public void handleMessage(Message message) {
+            switch (message.what) {
+                case NetworkConstants.GET_MENUITEMS_SUCCESS:
+                    Toast.makeText(getApplicationContext(), "Success in Loading Menu Items", Toast.LENGTH_LONG).show();
+                    break;
+                case NetworkConstants.CUSTOMER_OPERATION_FAILURE:
+                    Toast.makeText(getApplicationContext(), "Error in Loading Menu Items", Toast.LENGTH_LONG).show();
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

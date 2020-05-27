@@ -62,7 +62,7 @@ public class NetRequestHandler {
             if (responseCode == HttpURLConnection.HTTP_OK) {
 
                 if (connection.getRequestMethod().equals("POST")
-                        || networkObject.mId==NetworkConstants.ACCESS_CODE_SUCCESS
+                        || networkObject.mId==NetworkConstants.GET_MENUITEMS_SUCCESS
                         ) {
                     byte[] responseBytes = IOUtils.toByteArrayUsingReader(connection.getInputStream());
                     networkObject.mResponseJson = new String(responseBytes);

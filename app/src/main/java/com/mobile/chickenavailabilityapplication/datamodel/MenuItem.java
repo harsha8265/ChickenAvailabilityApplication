@@ -11,7 +11,7 @@ public class MenuItem implements Serializable {
     public String productID;
     public String itemHeading;
     public String itemSubheading;
-    public String itemImage;
+    public String imageUrl;
     public int availableQuantity;
     public double price ;
     public HashMap<String, ArrayList<String>> optionsMap;
@@ -20,11 +20,11 @@ public class MenuItem implements Serializable {
 
     }
 
-    public MenuItem(String productID, String itemHeading, String itemSubheading, String itemImage, int availableQuantity, double price, HashMap<String,ArrayList<String>> optionsMap) {
+    public MenuItem(String productID, String itemHeading, String itemSubheading, String imageUrl, int availableQuantity, double price, HashMap<String,ArrayList<String>> optionsMap) {
         this.productID = productID;
         this.itemHeading = itemHeading;
         this.itemSubheading = itemSubheading;
-        this.itemImage = itemImage;
+        this.imageUrl = imageUrl;
         this.availableQuantity = availableQuantity;
         this.price = price;
         this.optionsMap=optionsMap;
