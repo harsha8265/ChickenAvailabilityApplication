@@ -39,6 +39,9 @@ import com.mobile.chickenavailabilityapplication.datamodel.CartItemContainer;
 import com.mobile.chickenavailabilityapplication.datamodel.MenuItem;
 import com.mobile.chickenavailabilityapplication.datamodel.MenuItemContainer;
 import com.mobile.chickenavailabilityapplication.util.ViewUtils;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -76,6 +79,7 @@ public class ItemDescriptionFragment extends Fragment {
     Button increementButton;
     Button decreementButton;
     Button addCartButton;
+    Picasso picasso;
 
     private static final double MIN_QUANTITY = 1.00;
     MenuItem menuItem;
@@ -110,6 +114,9 @@ public class ItemDescriptionFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        picasso = Picasso.get();
+        picasso.setIndicatorsEnabled(true);
+        picasso.setLoggingEnabled(true);
 
         OnBackPressedCallback callback= new OnBackPressedCallback(true) {
             @Override
@@ -161,8 +168,10 @@ public class ItemDescriptionFragment extends Fragment {
         itemQuantity = (TextView) view.findViewById(R.id.quantity_text_view);
         specialInstructionsText=(EditText) view.findViewById(R.id.special_instruction_edittext);
 
-        int resID = view.getResources().getIdentifier(menuItem.itemImage , "drawable" , view.getContext().getPackageName());
-        itemImage.setBackground(getResources().getDrawable(resID));
+        int resID = view.getResources().getIdentifier(menuItem.imageUrl , "drawable" , view.getContext().getPackageName());
+        picasso.load(menuItem.imageUrl)
+                .networkPolicy(NetworkPolicy.OFFLINE)
+                .into(itemImage);
         itemTitle.setText(menuItem.itemHeading);
         itemDescription.setText(menuItem.itemSubheading);
         addCartButton.setText(view.getResources().getString(R.string.add_to_cart,menuItem.price));

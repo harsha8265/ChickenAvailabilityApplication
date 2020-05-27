@@ -16,6 +16,8 @@ import com.mobile.chickenavailabilityapplication.datamodel.MenuItem;
 import com.mobile.chickenavailabilityapplication.ui.DashboardMenuItemFragment.OnListFragmentInteractionListener;
 import com.mobile.chickenavailabilityapplication.dummy.DummyContent.DummyItem;
 import com.mobile.chickenavailabilityapplication.util.ViewUtils;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -31,7 +33,7 @@ public class DashboardMenuItemRecyclerViewAdapter extends RecyclerView.Adapter<D
     public Context mContext;
     private final List<MenuItem> mValues;
     private final OnListFragmentInteractionListener mListener;
-
+    private Picasso picasso;
     public DashboardMenuItemRecyclerViewAdapter(List<MenuItem> items,Context mContext, OnListFragmentInteractionListener listener) {
         mValues = items;
         this.mContext = mContext;
@@ -40,6 +42,9 @@ public class DashboardMenuItemRecyclerViewAdapter extends RecyclerView.Adapter<D
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        picasso = Picasso.get();
+        picasso.setIndicatorsEnabled(true);
+        picasso.setLoggingEnabled(true);
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_dashboardmenu_item, parent, false);
         return new ViewHolder(view);
@@ -47,15 +52,20 @@ public class DashboardMenuItemRecyclerViewAdapter extends RecyclerView.Adapter<D
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mItemHeadingText.setText(mValues.get(position).itemHeading);
-        holder.mItemPriceText.setText(mContext.getResources().getString(R.string.item_price_per_kg,mValues.get(position).price));
-        //holder.mItemAvailabilityText.setText("Availability :"+mValues.get(position).availableQuantity+"kgs");
-        holder.mItemSubHeadingText.setText(mValues.get(position).itemSubheading);
-        int resID = mContext.getResources().getIdentifier(mValues.get(position).itemImage , "drawable" , mContext.getPackageName());
-       // Bitmap bitMap = ViewUtils.drawableToBitmap(mContext.getResources().getDrawable(resID));
-        holder.mItemImageView.setBackground(mContext.getResources().getDrawable(resID));
+        MenuItem menuItem = mValues.get(position);
 
+        holder.mItem = menuItem;
+        holder.mItemHeadingText.setText(menuItem.itemHeading);
+        holder.mItemPriceText.setText(mContext.getResources().getString(R.string.item_price_per_kg,menuItem.price));
+        //holder.mItemAvailabilityText.setText("Availability :"+mValues.get(position).availableQuantity+"kgs");
+        holder.mItemSubHeadingText.setText(menuItem.itemSubheading);
+        //int resID = mContext.getResources().getIdentifier(mValues.get(position).itemImage , "drawable" , mContext.getPackageName());
+       // Bitmap bitMap = ViewUtils.drawableToBitmap(mContext.getResources().getDrawable(resID));
+        //holder.mItemImageView.setBackground(mContext.getResources().getDrawable(resID));
+        Picasso.get().load(menuItem.imageUrl)
+                //.memoryPolicy(MemoryPolicy.NO_CACHE)
+                //.memoryPolicy(MemoryPolicy.NO_STORE)
+                .into(holder.mItemImageView);
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

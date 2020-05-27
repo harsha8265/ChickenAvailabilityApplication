@@ -32,5 +32,6 @@ public class NetworkConstants {
     public static String SAVE_CUSTOMER_URL = SERVER_BASE_URL + "/api/User";
     public static String UPDATE_CUSTOMER_URL = SERVER_BASE_URL + "/api/CustomerService/updateCustomerProfile";
     public static String LOGIN_CUSTOMER_URL = SERVER_BASE_URL + "/api/CustomerService/customerLogin";
+    public static String PRODUCTS_URL = SERVER_BASE_URL+ "/api/Products";
 
 }

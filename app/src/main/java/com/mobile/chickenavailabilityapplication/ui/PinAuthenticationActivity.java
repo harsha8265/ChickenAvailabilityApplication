@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.os.Vibrator;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,6 +26,8 @@ import android.widget.Toast;
 
 import com.mobile.chickenavailabilityapplication.R;
 import com.mobile.chickenavailabilityapplication.datamodel.Customer;
+import com.mobile.chickenavailabilityapplication.datamodel.MenuItemContainer;
+import com.mobile.chickenavailabilityapplication.network.NetworkConstants;
 import com.mobile.chickenavailabilityapplication.util.PFCodeView;
 
 /**
@@ -151,15 +154,21 @@ public class PinAuthenticationActivity extends AppCompatActivity {
     private final PFCodeView.OnPFCodeListener mCodeListener = new PFCodeView.OnPFCodeListener() {
         @Override
         public void onCodeCompleted(String code) {
+
             mCode = code;
             if(mCode.equals(Customer.getInstance().pin)){
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivity(intent);
+
                 finish();
+
             }
             else{
                 mCodeView.clearCode();
                 errorAction();
+            }
+            if(MenuItemContainer.readMenuItemContainer().menuItems.isEmpty()){
+                MenuItemContainer.readMenuItemContainer().getMenuItems(new PinAuthenticationActivity.PinActivityHandler());
             }
             //Toast.makeText(getApplicationContext(), mCode, Toast.LENGTH_SHORT).show();
         }
@@ -182,7 +191,22 @@ public class PinAuthenticationActivity extends AppCompatActivity {
     }
 
 
+    private class PinActivityHandler extends Handler {
 
+        @Override
+        public void handleMessage(Message message) {
+            switch (message.what) {
+                case NetworkConstants.GET_MENUITEMS_SUCCESS:
+                    Toast.makeText(getApplicationContext(), "Success in Loading Menu Items", Toast.LENGTH_LONG).show();
+                    break;
+                case NetworkConstants.CUSTOMER_OPERATION_FAILURE:
+                    Toast.makeText(getApplicationContext(), "Error in Loading Menu Items", Toast.LENGTH_LONG).show();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 
 
 }
