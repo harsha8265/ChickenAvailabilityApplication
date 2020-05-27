@@ -28,7 +28,7 @@ public class MenuItemContainer extends Handler implements Serializable {
     private static MenuItemContainer menuItemContainer = newSingleton();
     private static final String MenuItemKey = "menuitem";
     public static final String IdKey = "productId";
-    public static final String ItemHeadingKey = "heading";
+    public static final String ItemHeadingKey = "name";
     public static final String ItemImageKey = "imageUrl";
     public static final String ItemSubHeadingKey = "subHeading";
     public static final String AvailableQuantityKey = "quantity";
