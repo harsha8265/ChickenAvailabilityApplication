@@ -157,19 +157,16 @@ public class PinAuthenticationActivity extends AppCompatActivity {
 
             mCode = code;
             if(mCode.equals(Customer.getInstance().pin)){
-                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                startActivity(intent);
-
-                finish();
-
+                Toast.makeText(getApplicationContext(), "Pin Successful and Fetching Menu Items", Toast.LENGTH_LONG).show();
+                if(MenuItemContainer.readMenuItemContainer().menuItems.isEmpty()){
+                    MenuItemContainer.readMenuItemContainer().getMenuItems(new PinAuthenticationActivity.PinActivityHandler());
+                }
             }
             else{
                 mCodeView.clearCode();
                 errorAction();
             }
-            if(MenuItemContainer.readMenuItemContainer().menuItems.isEmpty()){
-                MenuItemContainer.readMenuItemContainer().getMenuItems(new PinAuthenticationActivity.PinActivityHandler());
-            }
+
             //Toast.makeText(getApplicationContext(), mCode, Toast.LENGTH_SHORT).show();
         }
         @Override
@@ -197,8 +194,13 @@ public class PinAuthenticationActivity extends AppCompatActivity {
         public void handleMessage(Message message) {
             switch (message.what) {
                 case NetworkConstants.GET_MENUITEMS_SUCCESS:
+                {
                     Toast.makeText(getApplicationContext(), "Success in Loading Menu Items", Toast.LENGTH_LONG).show();
-                    break;
+                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                break;
                 case NetworkConstants.CUSTOMER_OPERATION_FAILURE:
                     Toast.makeText(getApplicationContext(), "Error in Loading Menu Items", Toast.LENGTH_LONG).show();
                     break;
