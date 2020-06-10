@@ -1,8 +1,10 @@
 package com.mobile.chickenavailabilityapplication.datamodel;
 
+import android.net.Network;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Base64;
+import android.widget.Toast;
 
 import com.mobile.chickenavailabilityapplication.datastore.FileSystemConnector;
 import com.mobile.chickenavailabilityapplication.network.NetworkConstants;
@@ -18,6 +20,7 @@ import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -42,7 +45,14 @@ public class Customer extends Handler implements Serializable {
     private static final String CellNumberKey = "cellNumber";
     private static final String SecurityQuestionIdKey = "securityQuestion";
     private static final String SecurityAnswerKey = "answer";
-    private static final String RegistrationDateTimeKey = "registrationDate";
+    private static final String RegistrationDateTimeKey = "registeredDate";
+    private static final String DoorNumberKey = "doorNumber";
+    private static final String StreetKey = "street";
+    private static final String AreaKey = "area";
+    private static final String PinCodeKey = "pinCode";
+    private static final String TownKey = "town";
+    private static final String StateKey = "state";
+
 
 
     //public static String sKey="jLIjfQZ5yojbZGTqxg2pYw==";
@@ -61,7 +71,10 @@ public class Customer extends Handler implements Serializable {
     public String securityAnswer;
     public Date registrationDateTime;
     public String timezoneId;
-
+    public Address shippingAddress;
+    public Address billingAddress;
+    public ArrayList<ProfileKeyValue> mProfileKeyValues;
+    public String PaymentMethod;
 
 
     private static Customer newSingleton() {
@@ -72,6 +85,7 @@ public class Customer extends Handler implements Serializable {
 
         FileSystemConnector fileSystemConnector = new FileSystemConnector();
         try {
+            //Object customer = fileSystemConnector.read(CustomerClassKey, true, sKey);
             sCustomer = (Customer) fileSystemConnector.read(CustomerClassKey, true, sKey);
         } catch (Exception e) {
             e.printStackTrace();
@@ -190,6 +204,43 @@ public class Customer extends Handler implements Serializable {
         networkHandler.ProcessRequest(updatePatientProfileObject(customer));
     }
 
+    public void updateCellNumber(Customer customer, Handler handler){
+        this.mHandler=handler;
+        NetworkObject obj = new NetworkObject();
+        obj.mId = NetworkConstants.CUSTOMER_DETAILS_UPDATE_SUCCESS;
+        obj.mRequestUrl = NetworkConstants.UPDATE_CUSTOMER_URL+"updateCellNumber?id="+customer.customerId;
+        obj.mRequestJson= "{\""+customer.cellNumber+"\"}";
+        NetworkHandler networkHandler = new NetworkHandler(this);
+        networkHandler.ProcessRequest(obj);
+    }
+
+    public void updateName(Customer customer, Handler handler){
+        this.mHandler=handler;
+        NetworkObject obj = new NetworkObject();
+        obj.mId = NetworkConstants.CUSTOMER_DETAILS_UPDATE_SUCCESS;
+        obj.mRequestUrl = NetworkConstants.UPDATE_CUSTOMER_URL+"updateShippingAddress?id="+customer.customerId;
+        obj.mRequestJson= "{\"" + FirstNameKey + "\":" + customer.firstName + ", \""
+                + LastNameKey +  "\":\"" + customer.lastName + "\"}";
+        NetworkHandler networkHandler = new NetworkHandler(this);
+        networkHandler.ProcessRequest(obj);
+    }
+
+    public void updateShippingAddress(Customer customer, Handler handler){
+        this.mHandler=handler;
+        NetworkObject obj = new NetworkObject();
+        obj.mId = NetworkConstants.CUSTOMER_DETAILS_UPDATE_SUCCESS;
+        obj.mRequestMethod = "PUT";
+        obj.mRequestUrl = NetworkConstants.UPDATE_CUSTOMER_URL+"updateShippingAddress?id="+customer.customerId;
+        obj.mRequestJson= "{\"" + DoorNumberKey + "\":\"" + customer.shippingAddress.DoorNumber + "\", \""
+                + StreetKey +  "\":\"" + customer.shippingAddress.Street + "\", \""
+                + AreaKey +  "\":\"" + customer.shippingAddress.Area + "\", \""
+                + PinCodeKey +  "\":\"" + customer.shippingAddress.PinCode + "\", \""
+                + TownKey +  "\":\"" + customer.shippingAddress.Town + "\", \""
+                + StateKey +  "\":\"" + customer.shippingAddress.State + "\"}";
+        NetworkHandler networkHandler = new NetworkHandler(this);
+        networkHandler.ProcessRequest(obj);
+    }
+
     private NetworkObject updatePatientProfileObject(Customer customer) {
         NetworkObject obj = new NetworkObject();
         obj.mId = NetworkConstants.CUSTOMER_DETAILS_UPDATE_SUCCESS;
@@ -230,6 +281,81 @@ public class Customer extends Handler implements Serializable {
         return obj;
     }
 
+    public void FillAccountDetails(){
+        mProfileKeyValues = new ArrayList<>();
+        SecurityQuestion sc = new SecurityQuestion(this.securityQuestionId, this.securityAnswer);
+        mProfileKeyValues.add(new ProfileKeyValue("First Name",this.firstName));
+        mProfileKeyValues.add(new ProfileKeyValue("Last Name",this.lastName));
+        mProfileKeyValues.add(new ProfileKeyValue("Password",this.password));
+        mProfileKeyValues.add(new ProfileKeyValue("Email Address",this.email));
+        mProfileKeyValues.add(new ProfileKeyValue("Cell Number",this.cellNumber));
+        mProfileKeyValues.add(new ProfileKeyValue("Payment Method",this.PaymentMethod));
+        mProfileKeyValues.add(new ProfileKeyValue("Pin",this.pin));
+        if(sc!=null){
+            mProfileKeyValues.add(new ProfileKeyValue("Security Question",sc.toString()));
+        }
+        if(shippingAddress!=null){
+            mProfileKeyValues.add(new ProfileKeyValue("Shipping Address",this.shippingAddress.toString()));
+        }
+        if(billingAddress!=null){
+            mProfileKeyValues.add(new ProfileKeyValue("Billing Address",this.billingAddress.toString()));
+        }
+    }
+
+    public void GetCustomerInformation (Handler handler){
+        mHandler = handler;
+        NetworkObject obj = new NetworkObject();
+        obj.mId = NetworkConstants.CUSTOMER_LOGIN_SUCCESS;
+        obj.mRequestUrl = NetworkConstants.GET_CUSTOMER_URL + "/" + Customer.getInstance().email;
+        NetworkHandler networkHandler = new NetworkHandler(this);
+        networkHandler.ProcessRequest(obj);
+    }
+
+    public void DeSerializeCustomerResponseJson(String json){
+        try{
+            JSONObject jsonObject = new JSONObject(json);
+            this.customerId = jsonObject.getString(CustomerIdKey);
+            this.firstName = jsonObject.getString(FirstNameKey);
+            this.lastName = jsonObject.getString(LastNameKey);
+            this.cellNumber = jsonObject.getString(CellNumberKey);
+            this.pin = jsonObject.getString(PinKey);
+            this.securityQuestionId = jsonObject.getInt(SecurityQuestionIdKey);
+            this.securityAnswer = jsonObject.getString(SecurityAnswerKey);
+            String registrationDate = jsonObject.getString(RegistrationDateTimeKey);
+            if(registrationDate !=null && registrationDate != ""){
+                this.registrationDateTime = ViewUtils.getDateForFormat("yyyy-MM-dd'T'HH:mm:ss", registrationDate, "UTC");
+                this.timezoneId = (ViewUtils.getTimezoneForDate(this.registrationDateTime)).getID();
+                this.registrationDateTime = new Date(ViewUtils.getDateWithoutTimeInMillies(this.registrationDateTime, timezoneId));
+            }
+            if(!jsonObject.isNull("shippingAddress")){
+                JSONObject shippingAddressObject = jsonObject.getJSONObject("shippingAddress");
+                if(shippingAddressObject!=null){
+                    shippingAddress = new Address(shippingAddressObject.getString("doorNumber"),
+                            shippingAddressObject.getString("street"),
+                            shippingAddressObject.getString("area"),
+                            shippingAddressObject.getString("pinCode"),
+                            shippingAddressObject.getString("town"),
+                            shippingAddressObject.getString("state"));
+                }
+            }
+
+            if(!jsonObject.isNull("billingAddress")){
+                JSONObject billingAddressObject = jsonObject.getJSONObject("billingAddress");
+                if(billingAddressObject!=null){
+                    billingAddress = new Address(billingAddressObject.getString("doorNumber"),
+                            billingAddressObject.getString("street"),
+                            billingAddressObject.getString("area"),
+                            billingAddressObject.getString("pinCode"),
+                            billingAddressObject.getString("town"),
+                            billingAddressObject.getString("state"));
+                }
+            }
+            FillAccountDetails();
+
+        }catch (JSONException e){
+            PostNotification.sendMessage(NetworkConstants.CUSTOMER_OPERATION_FAILURE, json, mHandler);
+        }
+    }
 
     @Override
     public void handleMessage(@NotNull Message message) {
@@ -239,21 +365,10 @@ public class Customer extends Handler implements Serializable {
                 if (message.obj != null) {
                     String json = object.mResponseJson;
                     try {
-                        JSONObject jsonObject = new JSONObject(json);
-                        this.customerId = jsonObject.getString(CustomerIdKey);
-                        this.firstName = jsonObject.getString(FirstNameKey);
-                        this.lastName = jsonObject.getString(LastNameKey);
-                        this.cellNumber = jsonObject.getString(CellNumberKey);
-//                        this.pin = jsonObject.getString(PinKey);
-                        this.securityQuestionId = jsonObject.getInt(SecurityQuestionIdKey);
-                        this.securityAnswer = jsonObject.getString(SecurityAnswerKey);
-                        String registrationDate = jsonObject.getString(RegistrationDateTimeKey);
-                        this.registrationDateTime = ViewUtils.getDateForFormat("yyyy-MM-dd'T'HH:mm:ss", registrationDate, "UTC");
-                        this.timezoneId = (ViewUtils.getTimezoneForDate(this.registrationDateTime)).getID();
-                        this.registrationDateTime = new Date(ViewUtils.getDateWithoutTimeInMillies(this.registrationDateTime, timezoneId));
+                        DeSerializeCustomerResponseJson(json);
                         saveObject();
                         PostNotification.sendMessage(NetworkConstants.CUSTOMER_LOGIN_SUCCESS, this, mHandler);
-                    } catch (JSONException e) {
+                    } catch (Exception e) {
                         PostNotification.sendMessage(NetworkConstants.CUSTOMER_OPERATION_FAILURE, json, mHandler);
                     }
                 }
@@ -291,14 +406,7 @@ public class Customer extends Handler implements Serializable {
 
             case NetworkConstants.CUSTOMER_DETAILS_UPDATE_SUCCESS:
                 if (message.obj != null) {
-                    String json = object.mResponseJson;
-                    try {
-                        JSONObject jsonObject = new JSONObject(json);
-                        saveObject();
-                        PostNotification.sendMessage(NetworkConstants.CUSTOMER_DETAILS_UPDATE_SUCCESS, this, mHandler);
-                    } catch (JSONException e) {
-                        PostNotification.sendMessage(NetworkConstants.CUSTOMER_OPERATION_FAILURE, json, mHandler);
-                    }
+                    PostNotification.sendMessage(NetworkConstants.CUSTOMER_DETAILS_UPDATE_SUCCESS, this, mHandler);
                 }
 
                 break;

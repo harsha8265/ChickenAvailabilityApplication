@@ -45,7 +45,12 @@ public class NetRequestHandler {
                 }*/
               //  connection.setRequestProperty("authSecret", "MobileApp");
                 connection.setRequestProperty("Content-Type", "application/json");
-                connection.setRequestMethod("POST");
+                if(networkObject.mRequestMethod != null){
+                    connection.setRequestMethod(networkObject.mRequestMethod);
+                }
+                else {
+                    connection.setRequestMethod("POST");
+                }
                 connection.setDoOutput(true);
                 connection.setDoInput(true);
 
@@ -63,7 +68,12 @@ public class NetRequestHandler {
 
                 if (connection.getRequestMethod().equals("POST")
                         || networkObject.mId==NetworkConstants.GET_MENUITEMS_SUCCESS
+                        || connection.getRequestMethod().equals("PUT")
                         ) {
+                    byte[] responseBytes = IOUtils.toByteArrayUsingReader(connection.getInputStream());
+                    networkObject.mResponseJson = new String(responseBytes);
+                }
+                else if(connection.getRequestMethod().equals("GET")){
                     byte[] responseBytes = IOUtils.toByteArrayUsingReader(connection.getInputStream());
                     networkObject.mResponseJson = new String(responseBytes);
                 }

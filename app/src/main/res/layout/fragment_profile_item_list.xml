@@ -6,7 +6,7 @@
     android:name="com.mobile.chickenavailabilityapplication.ui.ProfileItemFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
+    android:layout_marginLeft="2dp"
+    android:layout_marginRight="2dp"
     tools:context=".ui.ProfileItemFragment"
     tools:listitem="@layout/fragment_profile_item" />

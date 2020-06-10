@@ -5,48 +5,36 @@ import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
-
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.badge.BadgeDrawable;
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.mobile.chickenavailabilityapplication.R;
-import com.mobile.chickenavailabilityapplication.datamodel.CartItem;
-import com.mobile.chickenavailabilityapplication.datamodel.CartItemContainer;
-import com.mobile.chickenavailabilityapplication.datamodel.Customer;
-import com.mobile.chickenavailabilityapplication.dummy.DummyContent;
-import com.mobile.chickenavailabilityapplication.util.ViewUtils;
-
-import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ActionMenuView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.HashSet;
-import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.badge.BadgeDrawable;
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.mobile.chickenavailabilityapplication.R;
+import com.mobile.chickenavailabilityapplication.datamodel.CartItemContainer;
+import com.mobile.chickenavailabilityapplication.datamodel.Customer;
+import com.mobile.chickenavailabilityapplication.datamodel.ProfileKeyValue;
+import com.mobile.chickenavailabilityapplication.dummy.DummyContent;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class HomeActivity extends ParentActivity implements DashboardMenuItemFragment.OnListFragmentInteractionListener,
                                                             OrdersFragment.OnListFragmentInteractionListener,
@@ -145,8 +133,23 @@ public class HomeActivity extends ParentActivity implements DashboardMenuItemFra
         navController.navigate(R.id.action_menu_to_description, bundle);
     }
     @Override
-    public void onProfileListFragmentInteraction(DummyContent.DummyItem item) {
+    public void onProfileListFragmentInteraction(ProfileKeyValue item) {
 
+        NavController navController = Navigation.findNavController(this, R.id.fragNavHost);
+        switch (item.Key){
+            case "Billing Address":
+            case "Shipping Address":
+                navController.navigate(R.id.action_profileItemFragment_to_updateAddressFragment);
+            break;
+            case "First Name":
+            case "Last Name":
+                navController.navigate(R.id.action_profileItemFragment_to_updateNameFragment);
+                break;
+            case "Password":
+                navController.navigate(R.id.action_profileItemFragment_to_updatePasswordFragment);
+            default:
+                break;
+        }
     }
 
     public void addNotificationBadge(int count,int RESID) {
@@ -222,9 +225,13 @@ public class HomeActivity extends ParentActivity implements DashboardMenuItemFra
                         profileMenu.findItem(R.id.action_profile).setVisible(true);
                         profileMenu.findItem(R.id.action_profile).setEnabled(true);
                     }                        break;
+
                 case R.id.itemDescriptionFragment:
                 case R.id.profileItemFragment:
                 case R.id.reviewCartItemFragment:
+                case R.id.updateAddressFragment:
+                case R.id.updateNameFragment:
+                case R.id.updatePasswordFragment:
                     ((AppBarLayout.LayoutParams)toolbar.getLayoutParams()).gravity= Gravity.START;
                     toolbar.setContentInsetsRelative(0,0);
 
@@ -236,6 +243,7 @@ public class HomeActivity extends ParentActivity implements DashboardMenuItemFra
                     }
                     hideBottomNavigation();
                     break;
+
                 default:
                     showBottomNavigation();
             }

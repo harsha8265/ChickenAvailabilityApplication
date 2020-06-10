@@ -3,18 +3,23 @@ package com.mobile.chickenavailabilityapplication.ui;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.Toast;
 import com.mobile.chickenavailabilityapplication.R;
-import com.mobile.chickenavailabilityapplication.dummy.DummyContent;
-import com.mobile.chickenavailabilityapplication.dummy.DummyContent.DummyItem;
+import com.mobile.chickenavailabilityapplication.datamodel.Customer;
+import com.mobile.chickenavailabilityapplication.datamodel.ProfileKeyValue;
+import com.mobile.chickenavailabilityapplication.network.NetworkConstants;
+import java.util.ArrayList;
 
 /**
  * A fragment representing a list of Items.
@@ -29,6 +34,8 @@ public class ProfileItemFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+    private RecyclerView recyclerView;
+    ArrayList<ProfileKeyValue> profileKeyValueArrayList;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -61,20 +68,24 @@ public class ProfileItemFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile_item_list, container, false);
 
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyProfileItemRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            Customer.getInstance().GetCustomerInformation(new AccountHandler());
         }
-        return view;
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -105,6 +116,24 @@ public class ProfileItemFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onProfileListFragmentInteraction(DummyItem item);
+        void onProfileListFragmentInteraction(ProfileKeyValue item);
+    }
+
+    private class AccountHandler extends Handler{
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            switch (msg.what){
+                case NetworkConstants.CUSTOMER_LOGIN_SUCCESS:{
+                    Toast.makeText(getContext(), "Success in Fetching Account Details", Toast.LENGTH_LONG).show();
+                    profileKeyValueArrayList = Customer.getInstance().mProfileKeyValues;
+                    recyclerView.setAdapter(new MyProfileItemRecyclerViewAdapter(profileKeyValueArrayList, mListener));
+                }
+                break;
+                case NetworkConstants.GET_ACCOUNT_FAILURE:{
+                    Toast.makeText(getContext(), "Failure in Fetching Account Details", Toast.LENGTH_LONG).show();
+                }
+            }
+
+        }
     }
 }

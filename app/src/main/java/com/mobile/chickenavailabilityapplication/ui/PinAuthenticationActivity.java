@@ -1,13 +1,5 @@
 package com.mobile.chickenavailabilityapplication.ui;
 
-import android.annotation.SuppressLint;
-
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -16,13 +8,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.mobile.chickenavailabilityapplication.R;
 import com.mobile.chickenavailabilityapplication.datamodel.Customer;
@@ -154,7 +147,6 @@ public class PinAuthenticationActivity extends AppCompatActivity {
     private final PFCodeView.OnPFCodeListener mCodeListener = new PFCodeView.OnPFCodeListener() {
         @Override
         public void onCodeCompleted(String code) {
-
             mCode = code;
             if(mCode.equals(Customer.getInstance().pin)){
                 Toast.makeText(getApplicationContext(), "Pin Successful and Fetching Menu Items", Toast.LENGTH_LONG).show();
@@ -204,6 +196,10 @@ public class PinAuthenticationActivity extends AppCompatActivity {
                 case NetworkConstants.CUSTOMER_OPERATION_FAILURE:
                     Toast.makeText(getApplicationContext(), "Error in Loading Menu Items", Toast.LENGTH_LONG).show();
                     break;
+                case NetworkConstants.ACCESS_CODE_SUCCESS:
+                {
+                    Toast.makeText(getApplicationContext(), "Success in Account Menu Items", Toast.LENGTH_LONG).show();
+                }
                 default:
                     break;
             }

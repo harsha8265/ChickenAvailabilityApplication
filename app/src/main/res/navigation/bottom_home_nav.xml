@@ -88,6 +88,43 @@
         <action
             android:id="@+id/action_profileItemFragment_to_ordersFragment"
             app:destination="@id/ordersFragment" />
+        <action
+            android:id="@+id/action_profileItemFragment_to_updateAddressFragment"
+            app:destination="@id/updateAddressFragment" />
+        <action
+            android:id="@+id/action_profileItemFragment_to_updateNameFragment"
+            app:destination="@id/updateNameFragment" />
+        <action
+            android:id="@+id/action_profileItemFragment_to_updatePasswordFragment"
+            app:destination="@id/updatePasswordFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/updateAddressFragment"
+        android:name="com.mobile.chickenavailabilityapplication.ui.UpdateAddressFragment"
+        android:label="fragment_update_address"
+        tools:layout="@layout/fragment_update_address" >
+        <action
+            android:id="@+id/action_updateAddressFragment_to_profileItemFragment"
+            app:destination="@id/profileItemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateNameFragment"
+        android:name="com.mobile.chickenavailabilityapplication.ui.UpdateNameFragment"
+        android:label="fragment_update_name"
+        tools:layout="@layout/fragment_update_name" >
+        <action
+            android:id="@+id/action_updateNameFragment_to_profileItemFragment"
+            app:destination="@id/profileItemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updatePasswordFragment"
+        android:name="com.mobile.chickenavailabilityapplication.ui.UpdatePasswordFragment"
+        android:label="fragment_update_password"
+        tools:layout="@layout/fragment_update_password" >
+        <action
+            android:id="@+id/action_updatePasswordFragment_to_profileItemFragment"
+            app:destination="@id/profileItemFragment" />
+    </fragment>
+
 
 </navigation>

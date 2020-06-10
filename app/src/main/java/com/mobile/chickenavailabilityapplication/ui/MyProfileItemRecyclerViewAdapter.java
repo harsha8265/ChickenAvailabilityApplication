@@ -1,17 +1,19 @@
 package com.mobile.chickenavailabilityapplication.ui;
 
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.mobile.chickenavailabilityapplication.ui.ProfileItemFragment.OnListFragmentInteractionListener;
-import com.mobile.chickenavailabilityapplication.R;
-import com.mobile.chickenavailabilityapplication.dummy.DummyContent.DummyItem;
+import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
+import com.mobile.chickenavailabilityapplication.R;
+import com.mobile.chickenavailabilityapplication.datamodel.ProfileKeyValue;
+import com.mobile.chickenavailabilityapplication.dummy.DummyContent.DummyItem;
+import com.mobile.chickenavailabilityapplication.ui.ProfileItemFragment.OnListFragmentInteractionListener;
+
+import java.util.ArrayList;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
@@ -20,11 +22,10 @@ import java.util.List;
  */
 public class MyProfileItemRecyclerViewAdapter extends RecyclerView.Adapter<MyProfileItemRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final ArrayList<ProfileKeyValue> profileKeyValues;
     private final OnListFragmentInteractionListener mListener;
-
-    public MyProfileItemRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
-        mValues = items;
+    public MyProfileItemRecyclerViewAdapter(ArrayList<ProfileKeyValue> profileKeyValues, OnListFragmentInteractionListener listener) {
+        this.profileKeyValues = profileKeyValues;
         mListener = listener;
     }
 
@@ -37,9 +38,12 @@ public class MyProfileItemRecyclerViewAdapter extends RecyclerView.Adapter<MyPro
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mItem = profileKeyValues.get(position);
+        holder.mKeyView.setText(holder.mItem.Key);
+        if(holder.mItem.Key.equals("Password") || holder.mItem.Key.equals("Shipping Address")){
+            holder.mValueView.setInputType(InputType.TYPE_MASK_CLASS);
+        }
+        holder.mValueView.setText(holder.mItem.Value);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,25 +59,25 @@ public class MyProfileItemRecyclerViewAdapter extends RecyclerView.Adapter<MyPro
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return profileKeyValues.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
+        public final TextView mKeyView;
+        public final TextView mValueView;
+        public ProfileKeyValue mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mKeyView = (TextView) view.findViewById(R.id.text_view_key);
+            mValueView = (TextView) view.findViewById(R.id.text_view_value);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mValueView.getText() + "'";
         }
     }
 }

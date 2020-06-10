@@ -11,12 +11,13 @@ public class NetworkConstants {
     public static final int CUSTOMER_DETAILS_UPDATE_SUCCESS = 4;
     public static final int GET_MENUITEMS_SUCCESS = 5;
     public static final int GET_MENUITEMS_FAILURE = 6;
-
+    public static final int GET_ACCOUNT_SUCCESS = 7;
+    public static final int GET_ACCOUNT_FAILURE = 8;
 
     public static final int CUSTOMER_PIN_SECURITY_UPDATE_SUCCESS = 12;
 
     public static final int CUSTOMER_OPERATION_FAILURE = 101;
-
+    public static final int CUSTOMER_DETAILS_UPDATE_FAILURE = 9;
 
     public static final int NO_NETWORK_ID = 400;
     public static final int NETWORK_ERROR_ID = 401;
@@ -27,11 +28,11 @@ public class NetworkConstants {
 
     public static String SERVER_BASE_URL = "http://ec2co-ecsel-b4mx5wxkl978-1215690384.us-east-1.elb.amazonaws.com";
     //public static String SERVER_BASE_URL = "http://127.0.0.1:80";
-
-    public static String GET_CUSTOMER_URL = SERVER_BASE_URL + "/api/CustomerService/getCustomer";
     public static String SAVE_CUSTOMER_URL = SERVER_BASE_URL + "/api/User";
-    public static String UPDATE_CUSTOMER_URL = SERVER_BASE_URL + "/api/CustomerService/updateCustomerProfile";
+    public static String UPDATE_CUSTOMER_URL = SERVER_BASE_URL + "/api/User/";
     public static String LOGIN_CUSTOMER_URL = SERVER_BASE_URL + "/api/CustomerService/customerLogin";
     public static String PRODUCTS_URL = SERVER_BASE_URL+ "/api/Products";
+    public static String ACCOUNT_URL = SERVER_BASE_URL+"/api/Account/";
+    public static String GET_CUSTOMER_URL = SERVER_BASE_URL + "/api/User";
 
 }

@@ -11,4 +11,5 @@ public class NetworkObject {
     public String mResponseJson;
     public String mError;
     public Object mRequestObject;
+    public String mRequestMethod;
 }

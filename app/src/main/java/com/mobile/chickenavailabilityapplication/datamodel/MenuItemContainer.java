@@ -88,40 +88,6 @@ public class MenuItemContainer extends Handler implements Serializable {
     }
 
 
-    /*public void populateMenuItemObject() {
-        getMenuItems(this);
-        MenuItemContainer.readMenuItemContainer();
-        HashMap<String,ArrayList<String>> completeOptionsMap = new HashMap<String,ArrayList<String>>();
-        completeOptionsMap.put("Skin", new ArrayList<>(Arrays.asList("Skinless","Skin")));
-        completeOptionsMap.put("Size", new ArrayList<>(Arrays.asList("Small","Medium","Large")));
-
-        HashMap<String,ArrayList<String>> skinOptionsMap = new HashMap<String,ArrayList<String>>();
-        skinOptionsMap.put("Skin", new ArrayList<>(Arrays.asList("Skinless","Skin")));
-
-        HashMap<String,ArrayList<String>> sizeOptionsMap = new HashMap<String,ArrayList<String>>();
-        sizeOptionsMap.put("Size", new ArrayList<>(Arrays.asList("Small","Medium","Large")));
-
-        HashMap<String,ArrayList<String>> emptyOptions = new HashMap<String,ArrayList<String>>();
-
-
-        MenuItem menuItem1 = new MenuItem("a1ef", "Chicken Thighs", "Chicken Thighs are the thigh of the chicken leg, just above the part of the leg called the drumstick", "chicken_thigh", 5,100.99,completeOptionsMap);
-        MenuItem menuItem2 = new MenuItem("a2ef", "Chicken Legs", "Chicken Thighs are the thigh of the chicken leg, just above the part of the leg called the drumstick", "chicken_legs", 3,200.99,skinOptionsMap);
-        MenuItem menuItem3 = new MenuItem("a3ef", "Whole Chicken", "Chicken Thighs are the thigh of the chicken leg, just above the part of the leg called the drumstick", "whole_chicken", 3,300.99,completeOptionsMap);
-        MenuItem menuItem4 = new MenuItem("a4ef", "Chicken Liver", "Chicken Thighs are the thigh of the chicken leg, just above the part of the leg called the drumstick", "chicken_liver", 2,400.99,emptyOptions);
-        MenuItem menuItem5 = new MenuItem("a5ef", "Chicken Quarters", "Chicken Thighs are the thigh of the chicken leg, just above the part of the leg called the drumstick", "chicken_legquarters", 4,500.99,skinOptionsMap);
-        MenuItem menuItem6 = new MenuItem("a6ef", "Chicken Boneless", "Chicken Thighs are the thigh of the chicken leg, just above the part of the leg called the drumstick", "chicken_boneless", 7,600.99,sizeOptionsMap);
-
-        menuItems.add(menuItem1);
-        menuItems.add(menuItem2);
-        menuItems.add(menuItem3);
-        menuItems.add(menuItem4);
-        menuItems.add(menuItem5);
-        menuItems.add(menuItem6);
-
-         saveObject();
-
-    }*/
-
     public void getMenuItems(Handler handler) {
         this.mHandler = handler;
         NetworkHandler networkHandler = new NetworkHandler(this);
